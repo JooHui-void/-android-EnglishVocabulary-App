@@ -11,6 +11,8 @@ public class WordBook {
     @ColumnInfo(defaultValue = "0")
     private int checkNumber;
     @ColumnInfo(defaultValue = "0")
+    private int correctNumber;
+    @ColumnInfo(defaultValue = "0")
     private int incorrectNumber;
     @ColumnInfo(defaultValue = "0")
     private int viewNumber;
@@ -29,6 +31,14 @@ public class WordBook {
 
     public void setCheckNumber(int checkNumber) {
         this.checkNumber = checkNumber;
+    }
+
+    public int getCorrectNumber() {
+        return correctNumber;
+    }
+
+    public void setCorrectNumber(int correctNumber) {
+        this.correctNumber = correctNumber;
     }
 
     public int getIncorrectNumber() {

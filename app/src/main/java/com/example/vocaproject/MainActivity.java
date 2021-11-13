@@ -9,7 +9,7 @@ import android.util.Log;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private AppDatabase db;
+    private AppDatabase mDb;
     private WordDao mWordDao;
     private WordBookDao mWordBookDao;
 
@@ -18,10 +18,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = AppDatabase.getInstance(this);
+        mDb = AppDatabase.getInstance(this);
 
-        mWordDao = db.wordDao();
-        mWordBookDao = db.wordBookDao();
+        mWordDao = mDb.wordDao();
+        mWordBookDao = mDb.wordBookDao();
         List<Word> wordList = mWordDao.getNotCorrectWord();
 
        for(int i=0; i<wordList.size(); i++){
