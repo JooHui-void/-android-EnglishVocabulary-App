@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "word")
 public class Word {
     @PrimaryKey(autoGenerate = true)
-    private int id = 0;
+    private int _id = 0;
     @ColumnInfo
     private String wordEng;
     @ColumnInfo
@@ -18,11 +18,11 @@ public class Word {
     private int isChecking;
 
     public int getId() {
-        return id;
+        return _id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getWordEng() {

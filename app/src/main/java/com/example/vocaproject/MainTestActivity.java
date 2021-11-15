@@ -2,6 +2,7 @@ package com.example.vocaproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,17 +16,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MainTestActivity extends AppCompatActivity{
-    TextView engWord;
 
     private AppDatabase mDb;
     private WordDao mWordDao;
     private WordBookDao mWordBookDao;
-
-    private List<Word> mTestWord;
-    private List<Integer> mWordIndex;
-    private int wordIndex = 0;
-
-    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,33 +28,48 @@ public class MainTestActivity extends AppCompatActivity{
 
         mDb = AppDatabase.getInstance(this);
         mWordDao = mDb.wordDao();
-
-        Button allTestBtn = (Button) findViewById(/*채우기*/);
+        mWordBookDao = mDb.wordBookDao();
     }
 
-    /*
-    public void onClick(View v){
+/*  이거말고 다른 방법 있으면 찾기..
+    @OnClick({})
+    public void onAlphabetBtnClick(View v){
         int day = 15;
 
         switch(v.getId()){
             case 버튼1:
+                day--;
             case 버튼2:
+                day--;
             case 버튼3:
+                day--;
             case 버튼4:
+                day--;
             case 버튼5:
+                day--;
             case 버튼6:
+                day--;
             case 버튼7:
+                day--;
             case 버튼8:
+                day--;
             case 버튼9:
+                day--;
             case 버튼10:
+                day--;
             case 버튼11:
+                day--;
             case 버튼12:
+                day--;
             case 버튼13:
+                day--;
             case 버튼14:
+                day--;
             case 버튼15:
-                startTest(day);
-                break;
+                Intent intent = new Intent(this, AlphabetTest.class);
+                intent.putExtra("VocaDay", day);
+                startActivity(intent);
         }
     }
-    */
+*/
 }

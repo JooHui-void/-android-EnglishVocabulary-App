@@ -22,12 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
         mWordDao = mDb.wordDao();
         mWordBookDao = mDb.wordBookDao();
-        List<Word> wordList = mWordDao.getNotCorrectWord();
 
-       for(int i=0; i<wordList.size(); i++){
+        List<Word> wordList = mWordDao.getData();
+//
+//       for(int i=0; i<wordList.size(); i++){
 //           Log.d("Test", wordList.get(i).getWordEng() + "\n"
 //           +wordList.get(i).getWordKor()+"\n");
-       }
+//       }
 
 
     }
