@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:layout_margin="8dp"
+    android:background="#f0f0f0ff">
+
+    <TextView
+        android:id="@+id/custom_word_item_engWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DAY 1"
+        android:textSize="16dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/informLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/custom_word_item_engWord"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/custom_item_icon_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_view1" />
+
+        <TextView
+            android:id="@+id/custom_item_numView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"
+            android:text="13" />
+
+        <ImageView
+            android:id="@+id/custom_item_icon_correct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_correct1" />
+
+        <TextView
+            android:id="@+id/custom_wordbook_item_numCorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"
+            android:text="5" />
+
+        <ImageView
+            android:id="@+id/custom_wordbook_item_icon_incorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_incorrect1" />
+
+        <TextView
+            android:id="@+id/custom_wordbook_item_numIncorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"
+            android:text="10" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/custom_wordbook_item_numWords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15 words"
+        android:textSize="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/informLayout"/>
+
+
+</RelativeLayout>
