@@ -20,24 +20,28 @@ public interface WordDao {
     void setDelete(Word word);
 
     //단어 하나 가져오기
-    @Query ("SELECT * FROM word WHERE id =:id")
+    @Query ("SELECT * FROM word WHERE _id =:id")
     Word getWord(int id);
 
     //전체 단어 리스트 가져오기
     @Query ("SELECT * FROM word")
     List<Word> getData();
 
+    //전체 단어 개수 가져오기
+    @Query("SELECT COUNT (*) FROM word")
+    int getAllNumber();
+
     //부분 단어 리스트 가져오기
-    @Query("SELECT * FROM word WHERE id BETWEEN :minIndex AND :maxIndex")
+    @Query("SELECT * FROM word WHERE _id BETWEEN :minIndex AND :maxIndex")
     List<Word> getDailyData(int minIndex, int maxIndex);
 
     //틀린 단어 리스트 가져오기
-    @Query("SELECT * FROM Word WHERE isCorrect=0")
-    List<Word> getNotCorrectWord();
+    @Query("SELECT * FROM Word WHERE isCorrect=0 BETWEEN :minIndex AND :maxIndex")
+    List<Word> getNotCorrectWord(int minIndex, int maxIndex);
 
     //틀린 단어 개수 가져오기
-    @Query("SELECT COUNT (*) FROM Word WHERE isCorrect=0")
-    int getIncorrect();
+    @Query("SELECT COUNT (*) FROM Word WHERE isCorrect=0 BETWEEN :minIndex AND :maxIndex")
+    int getIncorrect(int minIndex, int maxIndex);
 
     //즐겨찾기 단어 리스트 가져오기
     @Query("SELECT * FROM Word WHERE isChecking=1")
