@@ -10,12 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VocaProject">
-        <activity
-            android:name=".MyItemView"
-            android:exported="true" />
-        <activity
-            android:name=".MyItem"
-            android:exported="true" />
+
+        
         <activity
             android:name=".MainActivity"
             android:exported="true">
