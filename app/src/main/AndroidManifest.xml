@@ -11,9 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VocaProject">
         <activity
-<<<<<<< HEAD
             android:name=".DailyWordbookActivity"
-=======
+            android:exported="true"/>
+        <activity
             android:name=".AlphabetTest"
             android:exported="true" />
         <activity
@@ -22,17 +22,7 @@
         <activity
             android:name=".FlashCardTest"
             android:exported="true" />
-        <activity
-            android:name=".MainActivity"
->>>>>>> 94299066fe6aa953e19a47b3215d3f9d221ae614
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-<<<<<<< HEAD
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -42,8 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-=======
->>>>>>> 94299066fe6aa953e19a47b3215d3f9d221ae614
+
         <activity
             android:name=".SearchActivity"
             android:exported="true" />
@@ -58,11 +47,7 @@
             android:exported="true" />
         <activity
             android:name=".TabActivity"
-<<<<<<< HEAD
-            android:exported="true"></activity>
-=======
-            android:exported="true" />
->>>>>>> 94299066fe6aa953e19a47b3215d3f9d221ae614
+            android:exported="true"/>
     </application>
 
 </manifest>
