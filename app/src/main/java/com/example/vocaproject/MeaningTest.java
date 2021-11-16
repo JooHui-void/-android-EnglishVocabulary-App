@@ -160,6 +160,7 @@ public class MeaningTest extends AppCompatActivity {
             mTestWord.get(wordIndex).setIsCorrect(0);
         }
         //넘어가기
+        //인덱스 +1
     }
 
 }
