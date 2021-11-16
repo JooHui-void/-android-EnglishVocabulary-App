@@ -11,6 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VocaProject">
         <activity
+            android:name=".MyItemView"
+            android:exported="true" />
+        <activity
+            android:name=".MyItem"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -19,7 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SearchActivity"
             android:exported="true" />
@@ -32,11 +37,9 @@
         <activity
             android:name=".MainWordbookActivity"
             android:exported="true" />
-
         <activity
             android:name=".TabActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>

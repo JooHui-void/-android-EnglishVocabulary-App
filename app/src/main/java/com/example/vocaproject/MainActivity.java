@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         List<Word> wordList = mWordDao.getNotCorrectWord();
 
        for(int i=0; i<wordList.size(); i++){
-//           Log.d("Test", wordList.get(i).getWordEng() + "\n"
-//           +wordList.get(i).getWordKor()+"\n");
+           Log.d("Test", wordList.get(i).getWordEng() + "\n"
+           +wordList.get(i).getWordKor()+"\n");
        }
 
 
