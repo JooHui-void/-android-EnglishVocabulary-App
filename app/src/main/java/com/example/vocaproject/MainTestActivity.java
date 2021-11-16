@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,8 +36,11 @@ public class MainTestActivity extends AppCompatActivity {
 //        for(int i=0; i<wordList.size(); i++){
 //           Log.d("Test", wordList.get(i).getDay() + "\n");
 //        }
-        ListView listview = findViewById(R.id.listv);
+        LayoutInflater inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        ListView listview = findViewById(R.id.listv);
+        ExpandableListView expandableListView = findViewById(R.id.expandable);
+//        expandableListView.addView();
 
 //        for(int i=0;i<booklist.size();i++){
 //            WordBook tmp =booklist.get(i);
@@ -52,6 +57,7 @@ public class MainTestActivity extends AppCompatActivity {
 
         MyAdapter adapter = new MyAdapter(this,arrayList);
         listview.setAdapter(adapter);
+
     }
     public class MyAdapter extends BaseAdapter {
         Context mContext = null;
@@ -103,5 +109,7 @@ public class MainTestActivity extends AppCompatActivity {
 
             return view;
         }
+
+
     }
 }
