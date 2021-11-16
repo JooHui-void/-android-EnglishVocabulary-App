@@ -17,6 +17,8 @@ public class WordBook {
     @ColumnInfo(defaultValue = "0")
     private int viewNumber;
 
+
+
     public int getDay() {
         return day;
     }

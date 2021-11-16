@@ -22,8 +22,6 @@ public interface WordBookDao {
     @Query("SELECT * FROM wordbook WHERE day =:day")
     List<WordBook> getWordBook(int day);
 
-
-
     @Query ("SELECT * FROM wordBook")
     List<WordBook> getAll();
 

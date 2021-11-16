@@ -32,16 +32,16 @@ public interface WordDao {
     int getAllNumber();
 
     //부분 단어 리스트 가져오기
-    @Query("SELECT * FROM word WHERE _id BETWEEN :minIndex AND :maxIndex")
-    List<Word> getDailyData(int minIndex, int maxIndex);
+    @Query("SELECT * FROM word WHERE wordDay =:day")
+    List<Word> getDailyData(int day);
 
     //틀린 단어 리스트 가져오기
-    @Query("SELECT * FROM Word WHERE isCorrect=0 BETWEEN :minIndex AND :maxIndex")
-    List<Word> getNotCorrectWord(int minIndex, int maxIndex);
+    @Query("SELECT * FROM Word WHERE wordDay =:day")
+    List<Word> getNotCorrectWord(int day);
 
     //틀린 단어 개수 가져오기
-    @Query("SELECT COUNT (*) FROM Word WHERE isCorrect=0 BETWEEN :minIndex AND :maxIndex")
-    int getIncorrect(int minIndex, int maxIndex);
+    @Query("SELECT COUNT (*) FROM Word WHERE isCorrect=0 AND wordDay =:day")
+    int getIncorrect(int day);
 
     //즐겨찾기 단어 리스트 가져오기
     @Query("SELECT * FROM Word WHERE isChecking=1")

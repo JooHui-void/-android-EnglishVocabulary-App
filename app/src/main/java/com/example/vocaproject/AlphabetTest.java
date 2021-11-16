@@ -33,10 +33,7 @@ public class AlphabetTest extends AppCompatActivity {
     private List<Word> mTestWord;
     private List<WordBook> mTestWordBook;
     private int wordIndex = 0;
-
     private int day;
-    private int startIndex;
-    private int endIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +55,11 @@ public class AlphabetTest extends AppCompatActivity {
         wordIndex = 0;
 
         if (true/*전체 테스트면*/) {
-            startIndex = 1;
-            endIndex = mWordDao.getAllNumber();
-
             mTestWordBook = mWordBookDao.getAllWordBook();
             mTestWord = mWordDao.getData();
         } else {
-            startIndex = (day - 1) * DAILY_VOCA_NUMBER + 1;
-            endIndex = day * DAILY_VOCA_NUMBER;
-
             mTestWordBook = mWordBookDao.getWordBook(day);
-            mTestWord = mWordDao.getDailyData(startIndex, endIndex);
+            mTestWord = mWordDao.getDailyData(day);
         }
         Collections.shuffle(mTestWord);
     }
@@ -98,17 +89,14 @@ public class AlphabetTest extends AppCompatActivity {
         }
 
         if (true/*전체 테스트면*/) {
-            for(day = 0; day < WORDBOOK_DAY_NUMBER; day++){
-                startIndex = day * DAILY_VOCA_NUMBER + 1;
-                endIndex = (day + 1) * DAILY_VOCA_NUMBER;
-
-                incorrectNum = mWordDao.getIncorrect(startIndex, endIndex);
-                mTestWordBook.get(day).setIncorrectNumber(incorrectNum);
-                mTestWordBook.get(day).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
+            for(day = 1; day <= WORDBOOK_DAY_NUMBER; day++){
+                incorrectNum = mWordDao.getIncorrect(day);
+                mTestWordBook.get(day-1).setIncorrectNumber(incorrectNum);
+                mTestWordBook.get(day-1).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
                 mWordBookDao.setUpdateWordBook(mTestWordBook.get(day));
             }
         }else {
-            incorrectNum = mWordDao.getIncorrect(startIndex, endIndex);
+            incorrectNum = mWordDao.getIncorrect(day);
             mTestWordBook.get(0).setIncorrectNumber(incorrectNum);
             mTestWordBook.get(0).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));

@@ -2,15 +2,21 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d4a855f05094e2b2d9a900e0eeec0436",
+    "identityHash": "2548abdbb63ea83ffffc2769ef4be5d7",
     "entities": [
       {
         "tableName": "word",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `wordEng` TEXT, `wordKor` TEXT, `isCorrect` INTEGER NOT NULL DEFAULT 0, `isChecking` INTEGER NOT NULL DEFAULT 0)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `wordDay` INTEGER NOT NULL, `wordEng` TEXT, `wordKor` TEXT, `isCorrect` INTEGER NOT NULL DEFAULT 0, `isChecking` INTEGER NOT NULL DEFAULT 0)",
         "fields": [
           {
             "fieldPath": "_id",
             "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wordDay",
+            "columnName": "wordDay",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -102,7 +108,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd4a855f05094e2b2d9a900e0eeec0436')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2548abdbb63ea83ffffc2769ef4be5d7')"
     ]
   }
 }

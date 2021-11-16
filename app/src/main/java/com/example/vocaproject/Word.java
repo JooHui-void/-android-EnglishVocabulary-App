@@ -9,6 +9,8 @@ public class Word {
     @PrimaryKey(autoGenerate = true)
     private int _id = 0;
     @ColumnInfo
+    private int wordDay;
+    @ColumnInfo
     private String wordEng;
     @ColumnInfo
     private String wordKor;
@@ -23,6 +25,14 @@ public class Word {
 
     public void setId(int id) {
         this._id = id;
+    }
+
+    public int getWordDay() {
+        return wordDay;
+    }
+
+    public void setWordDay(int wordDay) {
+        this.wordDay = wordDay;
     }
 
     public String getWordEng() {
