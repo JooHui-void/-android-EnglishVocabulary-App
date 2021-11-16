@@ -2,74 +2,121 @@ package com.example.vocaproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+
+import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-public class MainTestActivity extends AppCompatActivity{
 
-    private AppDatabase mDb;
+
+public class MainTestActivity extends AppCompatActivity {
+    List<WordBook> booklist;
+    private AppDatabase db;
     private WordDao mWordDao;
     private WordBookDao mWordBookDao;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_test);
 
-        mDb = AppDatabase.getInstance(this);
-        mWordDao = mDb.wordDao();
-        mWordBookDao = mDb.wordBookDao();
-    }
 
-/*  이거말고 다른 방법 있으면 찾기..
-    @OnClick({})
-    public void onAlphabetBtnClick(View v){
-        int day = 15;
+        db = AppDatabase.getInstance(this);
 
-        switch(v.getId()){
-            case 버튼1:
-                day--;
-            case 버튼2:
-                day--;
-            case 버튼3:
-                day--;
-            case 버튼4:
-                day--;
-            case 버튼5:
-                day--;
-            case 버튼6:
-                day--;
-            case 버튼7:
-                day--;
-            case 버튼8:
-                day--;
-            case 버튼9:
-                day--;
-            case 버튼10:
-                day--;
-            case 버튼11:
-                day--;
-            case 버튼12:
-                day--;
-            case 버튼13:
-                day--;
-            case 버튼14:
-                day--;
-            case 버튼15:
-                Intent intent = new Intent(this, AlphabetTest.class);
-                intent.putExtra("VocaDay", day);
-                startActivity(intent);
+        mWordDao = db.wordDao();
+        mWordBookDao = db.wordBookDao();
+        booklist = mWordBookDao.getAll();
+
+//        for(int i=0; i<wordList.size(); i++){
+//           Log.d("Test", wordList.get(i).getDay() + "\n");
+//        }
+        LayoutInflater inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        ListView listview = findViewById(R.id.listv);
+        ExpandableListView expandableListView = findViewById(R.id.expandable);
+//        expandableListView.addView();
+
+//        for(int i=0;i<booklist.size();i++){
+//            WordBook tmp =booklist.get(i);
+//            adapter.addItem(tmp);
+//            Log.d("Test", "1" + "\n");
+//        }
+//        for(int i=0;i<adapter.getCount();i++){
+//            Log.d("Test", adapter.getItem(i).getDay() + "\n");
+//        }
+        ArrayList<WordBook> arrayList= new ArrayList<WordBook>();
+        for(int i=0;i<booklist.size();i++){
+            arrayList.add(booklist.get(i));
         }
+
+        MyAdapter adapter = new MyAdapter(this,arrayList);
+        listview.setAdapter(adapter);
+
     }
-*/
+    public class MyAdapter extends BaseAdapter {
+        Context mContext = null;
+        LayoutInflater mLayoutInflater = null;
+        ArrayList<WordBook> book = new ArrayList<WordBook>();
+
+        public MyAdapter(Context context, ArrayList<WordBook> data) {
+            mContext = context;
+            book = data;
+            mLayoutInflater = LayoutInflater.from(mContext);
+        }
+
+        public void addItem(WordBook b) {
+            book.add(b);
+        }
+
+        @Override
+        public int getCount() {
+            return book.size();
+        }
+
+        @Override
+        public WordBook getItem(int position) {
+            return book.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View conview, ViewGroup parent) {
+            LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = layoutInflater.inflate(R.layout.activity_my_item, parent, false);
+            TextView day, cor, incor, play;
+            day = view.findViewById(R.id.daynum);
+            play = view.findViewById(R.id.playtime);
+            cor = view.findViewById(R.id.correctword);
+            incor = view.findViewById(R.id.incorrectword);
+            if (day == null) {
+                Log.d("Test", "wrong");
+            }
+            WordBook tmp = book.get(position);
+            day.setText(Integer.toString(book.get(position).getDay()));
+            play.setText(Integer.toString(book.get(position).getViewNumber()));
+            cor.setText(Integer.toString(book.get(position).getCheckNumber()));
+            incor.setText(Integer.toString(book.get(position).getIncorrectNumber()));
+
+            return view;
+        }
+
+
+
+    }
+
 }
