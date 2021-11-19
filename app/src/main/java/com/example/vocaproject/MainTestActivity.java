@@ -1,16 +1,26 @@
 package com.example.vocaproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -26,12 +36,19 @@ public class MainTestActivity extends AppCompatActivity {
     private AppDatabase db;
     private WordDao mWordDao;
     private WordBookDao mWordBookDao;
+    LayoutInflater inflater;
+    View view;
+    View view2;
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_test);
-
-
+        context=this;
+        Toolbar myToolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         db = AppDatabase.getInstance(this);
 
         mWordDao = db.wordDao();
@@ -41,20 +58,12 @@ public class MainTestActivity extends AppCompatActivity {
 //        for(int i=0; i<wordList.size(); i++){
 //           Log.d("Test", wordList.get(i).getDay() + "\n");
 //        }
-        LayoutInflater inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ListView listview = findViewById(R.id.listv);
-        ExpandableListView expandableListView = findViewById(R.id.expandable);
-//        expandableListView.addView();
+        view2 = getLayoutInflater().inflate(R.layout.activity_main_test,null);
 
-//        for(int i=0;i<booklist.size();i++){
-//            WordBook tmp =booklist.get(i);
-//            adapter.addItem(tmp);
-//            Log.d("Test", "1" + "\n");
-//        }
-//        for(int i=0;i<adapter.getCount();i++){
-//            Log.d("Test", adapter.getItem(i).getDay() + "\n");
-//        }
+
+
         ArrayList<WordBook> arrayList= new ArrayList<WordBook>();
         for(int i=0;i<booklist.size();i++){
             arrayList.add(booklist.get(i));
@@ -63,7 +72,22 @@ public class MainTestActivity extends AppCompatActivity {
         MyAdapter adapter = new MyAdapter(this,arrayList);
         listview.setAdapter(adapter);
 
+
+//        final Button set =view2.findViewById(R.id.setting);
+//        set.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                ComponentName componentName =new ComponentName(
+//                        "com.example.vocaproject",
+//                        "com.example.vocaproject.Setting"
+//                );
+//                intent.setComponent(componentName);
+//                startActivity(intent);
+//            }
+//        });
     }
+
     public class MyAdapter extends BaseAdapter {
         Context mContext = null;
         LayoutInflater mLayoutInflater = null;
@@ -99,6 +123,8 @@ public class MainTestActivity extends AppCompatActivity {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(R.layout.activity_my_item, parent, false);
             TextView day, cor, incor, play;
+
+            final LinearLayout menu =  view.findViewById(R.id.menu);
             day = view.findViewById(R.id.daynum);
             play = view.findViewById(R.id.playtime);
             cor = view.findViewById(R.id.correctword);
@@ -112,11 +138,93 @@ public class MainTestActivity extends AppCompatActivity {
             cor.setText(Integer.toString(book.get(position).getCheckNumber()));
             incor.setText(Integer.toString(book.get(position).getIncorrectNumber()));
 
+            final Button spread = (Button)view.findViewById(R.id.spread);
+            spread.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(menu.getVisibility()==View.VISIBLE){
+                        menu.setVisibility(View.GONE);
+                        spread.setBackgroundResource(R.drawable.icon_expand);
+                    }else{
+                        menu.setVisibility(View.VISIBLE);
+                        spread.setBackgroundResource(R.drawable.icon_fold);
+                    }
+                }
+            });
+            Button flashcardbutton = view.findViewById(R.id.flash_button);
+            Button meaningtestbutton = view.findViewById(R.id.mean_button);
+            Button alphabettestbutton = view.findViewById(R.id.alphabet_button);
+
+            Button.OnClickListener onClickListener = new Button.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    ComponentName componentName;
+                    switch (view.getId()) {
+                        case R.id.flash_button :
+                            componentName =new ComponentName(
+                                    "com.example.vocaproject",
+                                    "com.example.vocaproject.FlashCardTest"
+                            );
+                            intent.setComponent(componentName);
+                            startActivity(intent);
+                            break ;
+                        case R.id.mean_button:
+                            componentName =new ComponentName(
+                                    "com.example.vocaproject",
+                                    "com.example.vocaproject.FlashCardTest"
+                            );
+                            intent.setComponent(componentName);
+                            startActivity(intent);
+                            break ;
+                        case R.id.alphabet_button:
+                            componentName =new ComponentName(
+                                    "com.example.vocaproject",
+                                    "com.example.vocaproject.FlashCardTest"
+                            );
+                            intent.setComponent(componentName);
+                            startActivity(intent);
+                            break ;
+                    }
+                }
+            } ;
+            flashcardbutton.setOnClickListener(onClickListener);
+            meaningtestbutton.setOnClickListener(onClickListener);
+            alphabettestbutton.setOnClickListener(onClickListener);
             return view;
         }
 
 
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                Intent intent = new Intent();
+                ComponentName componentName =new ComponentName(
+                        "com.example.vocaproject",
+                        "com.example.vocaproject.Setting"
+                );
+                intent.setComponent(componentName);
+                startActivity(intent);
+                return true;
+            default:
+
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.toolbar_menu, menu);
+
+        return true;
+    }
+
 
 }
