@@ -2,11 +2,18 @@ package com.example.vocaproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +26,8 @@ public class FlashCardTest extends AppCompatActivity {
 
     TextView engWord;
     TextView korWord;
-
+    RelativeLayout front;
+    RelativeLayout back;
     private AppDatabase mDb;
     private WordDao mWordDao;
     private WordBookDao mWordBookDao;
@@ -28,28 +36,51 @@ public class FlashCardTest extends AppCompatActivity {
     private List<WordBook> mTestWordBook;
     private int wordIndex = 0;
     private int day;
-
+    private int cardside;
     private Handler mHandler = new Handler();
-
+    Button know,dontKnow,card;
+    TextView wordcnt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash_card_test);
-
+        front = findViewById(R.id.front);
+        back = findViewById(R.id.back);
         Intent intent = getIntent();
         day = intent.getIntExtra("VocaDay", 0);
-
         mDb = AppDatabase.getInstance(this);
         mWordDao = mDb.wordDao();
         mWordBookDao = mDb.wordBookDao();
         startTest();
-    }
 
+        wordcnt=(TextView)findViewById(R.id.wordcnt);
+        TextView wordcnt2=(TextView)findViewById(R.id.wordcnt2);
+
+
+        TextView alpha2=(TextView)findViewById(R.id.alphaword2);
+
+        TextView kor2=(TextView)findViewById(R.id.korword2);
+//        while(wordIndex<15){
+//            cardside=0;
+//
+//        }
+       know = findViewById(R.id.know);
+       dontKnow = findViewById(R.id.dont_know);
+       card = findViewById(R.id.card);
+        know.setOnClickListener(onClickListener);
+        dontKnow.setOnClickListener(onClickListener);
+        card.setOnClickListener(onClickListener);
+
+        setfrontView();
+        if(isEnd()){
+            endTest();
+        }
+    }
     // 인덱스, 단어장, 단어 초기화
     private void startTest() {
         wordIndex = 0;
 
-        if (true/*전체 테스트면*/) {
+        if (day==0) {
             mTestWordBook = mWordBookDao.getAllWordBook();
             mTestWord = mWordDao.getData();
         } else {
@@ -75,7 +106,7 @@ public class FlashCardTest extends AppCompatActivity {
             mWordDao.setUpdateWord(mTestWord.get(i));
         }
 
-        if (true/*전체 테스트면*/) {
+        if (day==0) {
             for(day = 1; day <= WORDBOOK_DAY_NUMBER; day++){
                 incorrectNum = mWordDao.getIncorrect(day);
                 mTestWordBook.get(day-1).setIncorrectNumber(incorrectNum);
@@ -97,15 +128,45 @@ public class FlashCardTest extends AppCompatActivity {
         finish();
     }
 
-    @OnClick(/*알아요버튼아이디*/)
-    public void onOKButton(){
-        mTestWord.get(wordIndex).setIsCorrect(1);
-        //넘어가기
+
+    private void setfrontView(){
+
+        wordcnt.setText(wordIndex+1+"/"+"15");
+        TextView alpha1=(TextView)findViewById(R.id.alphaword);
+        alpha1.setText(mTestWord.get(wordIndex).getWordEng());
+        front.setVisibility(View.VISIBLE);
+        back.setVisibility(View.INVISIBLE);
+
     }
 
-    @OnClick(/*몰라요버튼아이디*/)
-    public void onNotOKButton(){
-        mTestWord.get(wordIndex).setIsCorrect(0);
-        //넘어가기
-    }
+    Button.OnClickListener onClickListener = new Button.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+
+            switch (view.getId()) {
+                case R.id.card :
+                    if(cardside==0){
+                        //뒤집어준다.
+
+                        cardside=1;
+                    }else{
+
+                        cardside=0;
+                    }
+                    break ;
+                case R.id.know:
+                    mTestWord.get(wordIndex).setIsCorrect(1);
+                    wordIndex++;
+                    setfrontView();
+                    break ;
+                case R.id.dont_know:
+                    mTestWord.get(wordIndex).setIsCorrect(0);
+                    wordIndex++;
+                    setfrontView();
+                    break ;
+            }
+        }
+    } ;
+
 }

@@ -1,44 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="50dp"
-    android:paddingVertical="50dp">
+    tools:context=".MainActivity">
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="14"
-        android:background="@drawable/wordbook"
-        android:layout_marginBottom="20dp"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="horizontal"
-
-        android:gravity="bottom">
-
-        <Button
-            android:id="@+id/known"
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/wordbook"
-            android:backgroundTint="@color/deep_gray"
-            android:text="몰라요"
-            android:textColor="@color/white"
-            />
+            android:background="@color/deep_gray"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <Button
-            android:id="@+id/unknown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/wordbook"
-            android:backgroundTint="@color/deep_gray"
-            android:text="알아요"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:text="테스트">
+
+            </TextView>
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_margin="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="14"
+            android:layout_marginBottom="20dp">
+            <Button
+                android:id="@+id/card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/wordbook"
+                android:backgroundTint="#00000000"/>
+            <RelativeLayout
+                android:id = "@+id/front"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <View
+                    android:layout_width="match_parent"
+                    android:background="@drawable/wordbook"
+                    android:layout_height="match_parent">
+                </View>
+                <TextView
+                    android:id="@+id/wordcnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1/15"
+                    android:layout_margin="20dp"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:id="@+id/alphaword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="apple"
+                    android:layout_centerInParent="true"
+                    android:textSize="40dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id = "@+id/back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:visibility="invisible">
+                <View
+                    android:layout_width="match_parent"
+                    android:background="@drawable/wordbook"
+                    android:layout_height="match_parent">
+                </View>
+                <TextView
+                    android:id="@+id/wordcnt2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1/15"
+                    android:layout_margin="20dp"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:id="@+id/alphaword2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+
+                    android:text="apple"
+                    android:textSize="40dp" />
+                <TextView
+                    android:id="@+id/korword2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="사과"
+                    android:layout_below="@id/alphaword2"
+                    android:layout_centerInParent="true"
+                    android:textSize="40dp"/>
+            </RelativeLayout>
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="50dp"
+            android:gravity="top"
+            >
+
+            <Button
+                android:id="@+id/dont_know"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/wordbook"
+                android:backgroundTint="@color/deep_gray"
+                android:text="몰라요"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/know"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/wordbook"
+                android:backgroundTint="@color/deep_gray"
+                android:text="알아요"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

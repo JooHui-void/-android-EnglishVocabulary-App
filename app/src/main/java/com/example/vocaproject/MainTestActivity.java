@@ -25,11 +25,20 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+abstract class KnowIndexOnClickListener implements View.OnClickListener {
+
+    protected int index;
+
+    public KnowIndexOnClickListener(int index) {
+        this.index = index;
+    }
+}
 
 public class MainTestActivity extends AppCompatActivity {
     List<WordBook> booklist;
@@ -55,8 +64,8 @@ public class MainTestActivity extends AppCompatActivity {
         mWordBookDao = db.wordBookDao();
         booklist = mWordBookDao.getAll();
 
-//        for(int i=0; i<wordList.size(); i++){
-//           Log.d("Test", wordList.get(i).getDay() + "\n");
+//        for(int i=0; i<booklist.size(); i++){
+//           Log.d("Test", booklist.get(i).getDay() + "\n");
 //        }
         inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ListView listview = findViewById(R.id.listv);
@@ -129,9 +138,7 @@ public class MainTestActivity extends AppCompatActivity {
             play = view.findViewById(R.id.playtime);
             cor = view.findViewById(R.id.correctword);
             incor = view.findViewById(R.id.incorrectword);
-            if (day == null) {
-                Log.d("Test", "wrong");
-            }
+
             WordBook tmp = book.get(position);
             day.setText(Integer.toString(book.get(position).getDay()));
             play.setText(Integer.toString(book.get(position).getViewNumber()));
@@ -155,7 +162,7 @@ public class MainTestActivity extends AppCompatActivity {
             Button meaningtestbutton = view.findViewById(R.id.mean_button);
             Button alphabettestbutton = view.findViewById(R.id.alphabet_button);
 
-            Button.OnClickListener onClickListener = new Button.OnClickListener() {
+            Button.OnClickListener onClickListener = new KnowIndexOnClickListener(book.get(position).getDay()) {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
@@ -167,6 +174,8 @@ public class MainTestActivity extends AppCompatActivity {
                                     "com.example.vocaproject.FlashCardTest"
                             );
                             intent.setComponent(componentName);
+                            intent.putExtra("VocaDay",index);
+                            Log.d("index", String.valueOf(index));
                             startActivity(intent);
                             break ;
                         case R.id.mean_button:
@@ -188,6 +197,7 @@ public class MainTestActivity extends AppCompatActivity {
                     }
                 }
             } ;
+
             flashcardbutton.setOnClickListener(onClickListener);
             meaningtestbutton.setOnClickListener(onClickListener);
             alphabettestbutton.setOnClickListener(onClickListener);
