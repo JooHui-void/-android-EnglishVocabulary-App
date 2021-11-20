@@ -128,9 +128,6 @@ public class FlashCardTest extends AppCompatActivity {
 
 
     private void setfrontView(){
-        if(isEnd()){
-            endTest();
-        }
 
         wordcnt.setText(wordIndex+1+"/"+"15");
         TextView alpha1=(TextView)findViewById(R.id.alphaword);
@@ -153,27 +150,30 @@ public class FlashCardTest extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-
-            switch (view.getId()) {
-                case R.id.card :
-                    if(cardside==0){
+            if (isEnd()) {
+                endTest();
+            } else {
+                switch (view.getId()) {
+                    case R.id.card:
+                        if (cardside == 0) {
+                            setfrontView();
+                            cardside = 1;
+                        } else {
+                            setbackView();
+                            cardside = 0;
+                        }
+                        break;
+                    case R.id.know:
+                        mTestWord.get(wordIndex).setIsCorrect(1);
+                        wordIndex++;
                         setfrontView();
-                        cardside=1;
-                    }else{
-                        setbackView();
-                        cardside=0;
-                    }
-                    break ;
-                case R.id.know:
-                    mTestWord.get(wordIndex).setIsCorrect(1);
-                    wordIndex++;
-                    setfrontView();
-                    break ;
-                case R.id.dont_know:
-                    mTestWord.get(wordIndex).setIsCorrect(0);
-                    wordIndex++;
-                    setfrontView();
-                    break ;
+                        break;
+                    case R.id.dont_know:
+                        mTestWord.get(wordIndex).setIsCorrect(0);
+                        wordIndex++;
+                        setfrontView();
+                        break;
+                }
             }
         }
     } ;

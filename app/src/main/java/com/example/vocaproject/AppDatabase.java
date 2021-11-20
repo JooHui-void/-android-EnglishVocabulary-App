@@ -20,7 +20,6 @@ public abstract class AppDatabase extends RoomDatabase {
         if (mAppDatabase == null) {
             mAppDatabase = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DB_NAME)
                     .createFromAsset("database/Word.db")
-                    .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build();
         }
