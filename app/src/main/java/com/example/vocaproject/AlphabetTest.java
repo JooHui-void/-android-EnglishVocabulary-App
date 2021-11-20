@@ -94,12 +94,14 @@ public class AlphabetTest extends AppCompatActivity {
                 incorrectNum = mWordDao.getIncorrect(day);
                 mTestWordBook.get(day-1).setIncorrectNumber(incorrectNum);
                 mTestWordBook.get(day-1).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
+                mTestWordBook.get(day-1).setViewNumber(mTestWordBook.get(day-1).getViewNumber()+1);
                 mWordBookDao.setUpdateWordBook(mTestWordBook.get(day));
             }
         }else {
             incorrectNum = mWordDao.getIncorrect(day);
             mTestWordBook.get(0).setIncorrectNumber(incorrectNum);
             mTestWordBook.get(0).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
+            mTestWordBook.get(0).setViewNumber(mTestWordBook.get(0).getViewNumber()+1);
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
         }
 
