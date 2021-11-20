@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "word")
-public class Word {
+public class Word implements Comparable<Word> {
     @PrimaryKey(autoGenerate = true)
     private int _id = 0;
     @ColumnInfo
@@ -66,4 +66,10 @@ public class Word {
     public void setIsChecking(int isChecking) {
         this.isChecking = isChecking;
     }
+
+    @Override
+    public int compareTo(Word word){
+        return (this.wordEng.compareTo(word.wordEng));
+    }
+
 }

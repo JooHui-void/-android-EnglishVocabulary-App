@@ -1,5 +1,8 @@
 package com.example.vocaproject;
 
+import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
+import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -17,8 +20,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MeaningTest extends AppCompatActivity {
-    private final static int WORDBOOK_DAY_NUMBER = 15;
-    private final static int DAILY_VOCA_NUMBER = 15;
     private final static int ANSWER_NUMBER = 4;
 
     //@BindViews({/*정답버튼4개아이디*/})

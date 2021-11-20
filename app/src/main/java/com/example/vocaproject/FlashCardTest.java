@@ -1,5 +1,8 @@
 package com.example.vocaproject;
 
+import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
+import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ComponentName;
@@ -21,8 +24,6 @@ import java.util.List;
 import butterknife.OnClick;
 
 public class FlashCardTest extends AppCompatActivity {
-    private final static int WORDBOOK_DAY_NUMBER = 15;
-    private final static int DAILY_VOCA_NUMBER = 15;
 
     TextView engWord;
     TextView korWord;
@@ -119,7 +120,7 @@ public class FlashCardTest extends AppCompatActivity {
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
         }
 
-        Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_LONG);
         endActivity();
     }
 
@@ -168,7 +169,6 @@ public class FlashCardTest extends AppCompatActivity {
                     setfrontView();
                     break ;
             }
-            Log.d("Index: ", wordIndex + "\n");
         }
     } ;
 

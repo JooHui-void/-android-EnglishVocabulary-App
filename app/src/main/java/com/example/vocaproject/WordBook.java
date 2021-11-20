@@ -18,7 +18,6 @@ public class WordBook {
     private int viewNumber;
 
 
-
     public int getDay() {
         return day;
     }
@@ -58,4 +57,5 @@ public class WordBook {
     public void setViewNumber(int viewNumber) {
         this.viewNumber = viewNumber;
     }
+
 }
