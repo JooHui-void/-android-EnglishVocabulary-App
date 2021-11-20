@@ -24,8 +24,7 @@ public class FlashCardTest extends AppCompatActivity {
     private final static int WORDBOOK_DAY_NUMBER = 15;
     private final static int DAILY_VOCA_NUMBER = 15;
 
-    TextView engWord;
-    TextView korWord;
+    TextView alpha2,kor2;
     RelativeLayout front;
     RelativeLayout back;
     private AppDatabase mDb;
@@ -39,7 +38,7 @@ public class FlashCardTest extends AppCompatActivity {
     private int cardside;
     private Handler mHandler = new Handler();
     Button know,dontKnow,card;
-    TextView wordcnt;
+    TextView wordcnt,wordcnt2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,16 +53,13 @@ public class FlashCardTest extends AppCompatActivity {
         startTest();
 
         wordcnt=(TextView)findViewById(R.id.wordcnt);
-        TextView wordcnt2=(TextView)findViewById(R.id.wordcnt2);
+        wordcnt2=(TextView)findViewById(R.id.wordcnt2);
 
 
-        TextView alpha2=(TextView)findViewById(R.id.alphaword2);
+       alpha2=(TextView)findViewById(R.id.alphaword2);
 
-        TextView kor2=(TextView)findViewById(R.id.korword2);
-//        while(wordIndex<15){
-//            cardside=0;
-//
-//        }
+       kor2=(TextView)findViewById(R.id.korword2);
+
        know = findViewById(R.id.know);
        dontKnow = findViewById(R.id.dont_know);
        card = findViewById(R.id.card);
@@ -139,6 +135,15 @@ public class FlashCardTest extends AppCompatActivity {
 
     }
 
+    private void setbackView(){
+
+        wordcnt2.setText(wordIndex+1+"/"+"15");
+        alpha2.setText(mTestWord.get(wordIndex).getWordEng());
+        kor2.setText(mTestWord.get(wordIndex).getWordKor());
+        back.setVisibility(View.VISIBLE);
+        front.setVisibility(View.INVISIBLE);
+
+    }
     Button.OnClickListener onClickListener = new Button.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -147,11 +152,10 @@ public class FlashCardTest extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.card :
                     if(cardside==0){
-                        //뒤집어준다.
-
+                        setfrontView();
                         cardside=1;
                     }else{
-
+                        setbackView();
                         cardside=0;
                     }
                     break ;
