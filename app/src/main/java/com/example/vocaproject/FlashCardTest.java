@@ -68,9 +68,6 @@ public class FlashCardTest extends AppCompatActivity {
         card.setOnClickListener(onClickListener);
 
         setfrontView();
-        if(isEnd()){
-            endTest();
-        }
     }
     // 인덱스, 단어장, 단어 초기화
     private void startTest() {
@@ -88,10 +85,12 @@ public class FlashCardTest extends AppCompatActivity {
 
     // 테스트의 끝인지 체크
     private boolean isEnd(){
-        if(wordIndex == mTestWord.size()-1)
+        if(wordIndex == mTestWord.size()-1) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     // 테스트의 끝이면 결과를 DB에 업데이트 후 종료
@@ -126,6 +125,9 @@ public class FlashCardTest extends AppCompatActivity {
 
 
     private void setfrontView(){
+        if(isEnd()){
+            endTest();
+        }
 
         wordcnt.setText(wordIndex+1+"/"+"15");
         TextView alpha1=(TextView)findViewById(R.id.alphaword);
@@ -170,6 +172,7 @@ public class FlashCardTest extends AppCompatActivity {
                     setfrontView();
                     break ;
             }
+            Log.d("Index: ", wordIndex + "\n");
         }
     } ;
 
