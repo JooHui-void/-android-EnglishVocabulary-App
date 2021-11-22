@@ -1,4 +1,6 @@
 # -android-EnglishVocabulary-App
+- 데이터베이스 Room을 사용
+- 
 ![image](https://user-images.githubusercontent.com/69834729/142726443-79187550-10cc-4230-88bc-3ccced316784.png)
 
 
