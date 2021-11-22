@@ -7,7 +7,7 @@
     android:background="#f0f0f0ff">
 
     <TextView
-        android:id="@+id/custom_word_item_engWord"
+        android:id="@+id/custom_wordbook_item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DAY 1"
@@ -18,7 +18,7 @@
         android:id="@+id/informLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/custom_word_item_engWord"
+        android:layout_below="@id/custom_wordbook_item_date"
         android:layout_marginTop="10dp">
 
         <ImageView
@@ -29,7 +29,7 @@
             android:src="@drawable/icon_view1" />
 
         <TextView
-            android:id="@+id/custom_item_numView"
+            android:id="@+id/custom_wordbook_item_numView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
@@ -53,7 +53,7 @@
             android:text="5" />
 
         <ImageView
-            android:id="@+id/custom_wordbook_item_icon_incorrect"
+            android:id="@+id/custom_item_icon_incorrect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"

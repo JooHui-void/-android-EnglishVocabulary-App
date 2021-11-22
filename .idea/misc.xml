@@ -3,36 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-<<<<<<< HEAD
+        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/drawable/linebox.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_bookmark.xml" value="0.4" />
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_daily_wordbook.xml" value="0.24947916666666667" />
-=======
-        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/drawable/linebox.xml" value="0.15925925925925927" />
-        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/drawable/wordbook.xml" value="0.1" />
-        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_bookmark.xml" value="0.16576086956521738" />
-        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
-        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_main_test.xml" value="0.15579710144927536" />
-        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_my_item.xml" value="0.1926605504587156" />
-        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_my_item_view.xml" value="0.16979166666666667" />
-        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_tab.xml" value="0.15579710144927536" />
-        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/childrenview.xml" value="0.4" />
-        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_bookmark.xml" value="0.11197916666666667" />
->>>>>>> joohui
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_main_test.xml" value="0.11197916666666667" />
-        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_main_wordbook.xml" value="0.4" />
-        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_search.xml" value="0.264" />
+        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_main_wordbook.xml" value="0.1" />
+        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_meaning_test.xml" value="0.23641304347826086" />
+        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_my_item.xml" value="0.4" />
+        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_my_item_view.xml" value="0.23641304347826086" />
+        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_search.xml" value="0.1" />
+        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_setting.xml" value="0.23641304347826086" />
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_tab.xml" value="0.1" />
-<<<<<<< HEAD
-        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/custom_word_item.xml" value="0.4" />
+        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/childrenview.xml" value="0.23641304347826086" />
+        <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/custom_word_item.xml" value="0.1" />
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/custom_wordbook_item.xml" value="0.4" />
-=======
-        <entry key="..\:/Users/ljw01/AndroidStudioProjects/VocaProject/app/src/main/res/layout/activity_flash_card_test.xml" value="0.1" />
->>>>>>> 94299066fe6aa953e19a47b3215d3f9d221ae614
         <entry key="..\:/Users/ljw01/AndroidStudioProjects/VocaProject/app/src/main/res/layout/activity_main.xml" value="0.159375" />
-        <entry key="..\:/Users/ljw01/AndroidStudioProjects/VocaProject/app/src/main/res/layout/activity_main2.xml" value="0.1" />
-        <entry key="..\:/Users/ljw01/AndroidStudioProjects/VocaProject/app/src/main/res/layout/activity_main_test.xml" value="0.12447916666666667" />
-        <entry key="..\:/Users/ljw01/AndroidStudioProjects/VocaProject/app/src/main/res/layout/activity_meaning_test.xml" value="0.14412360688956433" />
         <entry key="..\:/Users/ljw01/AndroidStudioProjects/VocaProject/app/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>
     </option>
@@ -42,12 +28,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.15579710144927536" />
-      </ProjectState>
-    </option>
   </component>
 </project>
