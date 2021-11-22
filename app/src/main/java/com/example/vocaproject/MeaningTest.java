@@ -1,5 +1,8 @@
 package com.example.vocaproject;
 
+import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
+import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -17,8 +20,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MeaningTest extends AppCompatActivity {
-    private final static int WORDBOOK_DAY_NUMBER = 15;
-    private final static int DAILY_VOCA_NUMBER = 15;
     private final static int ANSWER_NUMBER = 4;
 
     //@BindViews({/*정답버튼4개아이디*/})
@@ -121,12 +122,14 @@ public class MeaningTest extends AppCompatActivity {
                 incorrectNum = mWordDao.getIncorrect(day);
                 mTestWordBook.get(day-1).setIncorrectNumber(incorrectNum);
                 mTestWordBook.get(day-1).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
+                mTestWordBook.get(day-1).setViewNumber(mTestWordBook.get(day-1).getViewNumber()+1);
                 mWordBookDao.setUpdateWordBook(mTestWordBook.get(day));
             }
         }else {
             incorrectNum = mWordDao.getIncorrect(day);
             mTestWordBook.get(0).setIncorrectNumber(incorrectNum);
             mTestWordBook.get(0).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
+            mTestWordBook.get(0).setViewNumber(mTestWordBook.get(0).getViewNumber()+1);
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
         }
 

@@ -1,5 +1,8 @@
 package com.example.vocaproject;
 
+import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
+import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ComponentName;
@@ -21,11 +24,8 @@ import java.util.List;
 import butterknife.OnClick;
 
 public class FlashCardTest extends AppCompatActivity {
-    private final static int WORDBOOK_DAY_NUMBER = 15;
-    private final static int DAILY_VOCA_NUMBER = 15;
 
-    TextView engWord;
-    TextView korWord;
+    TextView alpha2,kor2;
     RelativeLayout front;
     RelativeLayout back;
     private AppDatabase mDb;
@@ -39,7 +39,7 @@ public class FlashCardTest extends AppCompatActivity {
     private int cardside;
     private Handler mHandler = new Handler();
     Button know,dontKnow,card;
-    TextView wordcnt;
+    TextView wordcnt,wordcnt2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,16 +54,13 @@ public class FlashCardTest extends AppCompatActivity {
         startTest();
 
         wordcnt=(TextView)findViewById(R.id.wordcnt);
-        TextView wordcnt2=(TextView)findViewById(R.id.wordcnt2);
+        wordcnt2=(TextView)findViewById(R.id.wordcnt2);
 
 
-        TextView alpha2=(TextView)findViewById(R.id.alphaword2);
+       alpha2=(TextView)findViewById(R.id.alphaword2);
 
-        TextView kor2=(TextView)findViewById(R.id.korword2);
-//        while(wordIndex<15){
-//            cardside=0;
-//
-//        }
+       kor2=(TextView)findViewById(R.id.korword2);
+
        know = findViewById(R.id.know);
        dontKnow = findViewById(R.id.dont_know);
        card = findViewById(R.id.card);
@@ -72,9 +69,6 @@ public class FlashCardTest extends AppCompatActivity {
         card.setOnClickListener(onClickListener);
 
         setfrontView();
-        if(isEnd()){
-            endTest();
-        }
     }
     // 인덱스, 단어장, 단어 초기화
     private void startTest() {
@@ -92,10 +86,12 @@ public class FlashCardTest extends AppCompatActivity {
 
     // 테스트의 끝인지 체크
     private boolean isEnd(){
-        if(wordIndex == mTestWord.size()-1)
+        if(wordIndex == mTestWord.size()-1) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     // 테스트의 끝이면 결과를 DB에 업데이트 후 종료
@@ -111,16 +107,18 @@ public class FlashCardTest extends AppCompatActivity {
                 incorrectNum = mWordDao.getIncorrect(day);
                 mTestWordBook.get(day-1).setIncorrectNumber(incorrectNum);
                 mTestWordBook.get(day-1).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
+                mTestWordBook.get(day-1).setViewNumber(mTestWordBook.get(day-1).getViewNumber()+1);
                 mWordBookDao.setUpdateWordBook(mTestWordBook.get(day));
             }
         }else {
             incorrectNum = mWordDao.getIncorrect(day);
             mTestWordBook.get(0).setIncorrectNumber(incorrectNum);
             mTestWordBook.get(0).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
+            mTestWordBook.get(0).setViewNumber(mTestWordBook.get(0).getViewNumber()+1);
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
         }
 
-        Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_LONG);
         endActivity();
     }
 
@@ -139,32 +137,43 @@ public class FlashCardTest extends AppCompatActivity {
 
     }
 
+    private void setbackView(){
+
+        wordcnt2.setText(wordIndex+1+"/"+"15");
+        alpha2.setText(mTestWord.get(wordIndex).getWordEng());
+        kor2.setText(mTestWord.get(wordIndex).getWordKor());
+        back.setVisibility(View.VISIBLE);
+        front.setVisibility(View.INVISIBLE);
+
+    }
     Button.OnClickListener onClickListener = new Button.OnClickListener() {
         @Override
         public void onClick(View view) {
 
-
-            switch (view.getId()) {
-                case R.id.card :
-                    if(cardside==0){
-                        //뒤집어준다.
-
-                        cardside=1;
-                    }else{
-
-                        cardside=0;
-                    }
-                    break ;
-                case R.id.know:
-                    mTestWord.get(wordIndex).setIsCorrect(1);
-                    wordIndex++;
-                    setfrontView();
-                    break ;
-                case R.id.dont_know:
-                    mTestWord.get(wordIndex).setIsCorrect(0);
-                    wordIndex++;
-                    setfrontView();
-                    break ;
+            if (isEnd()) {
+                endTest();
+            } else {
+                switch (view.getId()) {
+                    case R.id.card:
+                        if (cardside == 0) {
+                            setfrontView();
+                            cardside = 1;
+                        } else {
+                            setbackView();
+                            cardside = 0;
+                        }
+                        break;
+                    case R.id.know:
+                        mTestWord.get(wordIndex).setIsCorrect(1);
+                        wordIndex++;
+                        setfrontView();
+                        break;
+                    case R.id.dont_know:
+                        mTestWord.get(wordIndex).setIsCorrect(0);
+                        wordIndex++;
+                        setfrontView();
+                        break;
+                }
             }
         }
     } ;

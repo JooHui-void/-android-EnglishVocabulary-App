@@ -25,5 +25,4 @@ public interface WordBookDao {
     @Query ("SELECT * FROM wordBook")
     List<WordBook> getAll();
 
-
 }
