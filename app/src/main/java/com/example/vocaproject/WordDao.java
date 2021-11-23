@@ -40,7 +40,7 @@ public interface WordDao {
     List<Word> getNotCorrectWordAll();
 
     //틀린 단어 리스트 부분 가져오기
-    @Query("SELECT * FROM Word WHERE wordDay =:day")
+    @Query("SELECT * FROM Word WHERE isCorrect=0 AND wordDay =:day")
     List<Word> getNotCorrectWord(int day);
 
     //틀린 단어 개수 가져오기
