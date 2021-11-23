@@ -52,6 +52,6 @@ public interface WordDao {
     List<Word> getCheckingWord();
 
     //즐겨찾기 단어 개수 가져오기
-    @Query("SELECT COUNT (*) FROM Word WHERE isCorrect=0")
+    @Query("SELECT COUNT (*) FROM Word WHERE isChecking=1")
     int getChecking();
 }
