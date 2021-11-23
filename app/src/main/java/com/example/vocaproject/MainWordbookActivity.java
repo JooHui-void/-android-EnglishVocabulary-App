@@ -2,12 +2,15 @@ package com.example.vocaproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,9 @@ public class MainWordbookActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        todayData.clear();
+        doneDatas.clear();
+        remainDatas.clear();
         setListView();
     }
 
@@ -83,7 +89,15 @@ public class MainWordbookActivity extends AppCompatActivity
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         // 날짜별 단어장 불러오기
+        TextView dateText = view.findViewById(R.id.custom_wordbook_item_date);
+        int day = Integer.parseInt(dateText.getText().toString());
+
+        Intent intent = new Intent(this, DailyWordbookActivity.class);
+        intent.putExtra("DAY",day);
+
+        startActivity(intent);
+
     }
 }

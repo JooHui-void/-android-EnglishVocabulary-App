@@ -33,8 +33,7 @@ public class WordbookAdapter extends ArrayAdapter<WordBook> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService
-                    (Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resID, null);
             WordbookHolder holder = new WordbookHolder(convertView);
             convertView.setTag(holder);
@@ -49,13 +48,13 @@ public class WordbookAdapter extends ArrayAdapter<WordBook> {
 
         final WordBook book = datas.get(position);
 
-        dateText.setText("DAY " + book.getDay());
-        view_numText.setText(book.getViewNumber());
-        correct_numText.setText(book.getCorrectNumber());
-        incorrect_numText.setText(book.getIncorrectNumber());
+        dateText.setText("" + book.getDay());
+        view_numText.setText(""+book.getViewNumber());
+        correct_numText.setText(""+book.getCorrectNumber());
+        incorrect_numText.setText(""+book.getIncorrectNumber());
         word_numText.setText(MainActivity.DAILY_VOCA_NUMBER + "words");
 
-        return super.getView(position, convertView, parent);
+        return convertView;
     }
 
     public static class WordbookHolder {

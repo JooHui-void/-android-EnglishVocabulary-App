@@ -3,17 +3,18 @@ package com.example.vocaproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookmarkActivity extends AppCompatActivity {
+public class BookmarkActivity extends AppCompatActivity implements OnWordItemClick{
 
     ListZip[] words = new ListZip[2];
-    ArrayList<Word> heartDatas = new ArrayList<>();
-    ArrayList<Word> incorrectDatas = new ArrayList<>();
+    List<Word> heartDatas = new ArrayList<>();
+    List<Word> incorrectDatas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,25 +43,24 @@ public class BookmarkActivity extends AppCompatActivity {
         AppDatabase db = AppDatabase.getInstance(this);
         WordDao WDao = db.wordDao();
         WordAdapter adapter;
-        FrameLayout bookmark;
 
-        // 단어장 목록 불러오기
-        List<Word> checkingWord = WDao.getCheckingWord();
-        for (int i = 0; i < checkingWord.size(); i++) {
-            heartDatas.add(checkingWord.get(i));
-        }
-        // **틀린 단어 전체 리스트 가져오는 함수 필요
-//        List<Word> incorrectWord = WDao.getNotCorrectWord();
-//        for (int i = 0; i < incorrectWord.size(); i++) {
-//            incorrectDatas.add(incorrectWord.get(i));
-//        }
+        heartDatas.clear();
+        incorrectDatas.clear();
 
-        // listview 띄우기
-        adapter = new WordAdapter
-                (this, R.layout.custom_word_item, heartDatas);
+        List<Word> heartDatas = WDao.getCheckingWord();
+        adapter = new WordAdapter(this, R.layout.custom_word_item, heartDatas,this);
         words[0].listView.setAdapter(adapter);
-//        adapter = new WordAdapter
-//                (this, R.layout.custom_word_item, incorrectDatas);
-//        words[1].listView.setAdapter(adapter);
+
+        List<Word> incorrectDatas = WDao.getNotCorrectWordAll();
+        adapter = new WordAdapter(this, R.layout.custom_word_item, incorrectDatas, this);
+        words[1].listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onWordItemClick(Word word){
+        AppDatabase db = AppDatabase.getInstance(this);
+        WordDao WDao = db.wordDao();
+        setListView();
+        WDao.setUpdateWord(word);
     }
 }

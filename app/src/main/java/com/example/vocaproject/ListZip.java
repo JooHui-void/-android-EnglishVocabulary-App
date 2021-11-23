@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,4 +43,5 @@ public class ListZip implements View.OnClickListener {
             isZipped = true;
         }
     }
+
 }
