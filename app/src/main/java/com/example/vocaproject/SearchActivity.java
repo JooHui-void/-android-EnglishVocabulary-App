@@ -3,8 +3,13 @@ package com.example.vocaproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,6 +33,33 @@ public class SearchActivity extends AppCompatActivity {
 
         mAllWord = mWordDao.getData();
         Collections.sort(mAllWord);
+
+        ListView wordList = (ListView)findViewById(R.id.dailyWord_listview);
+        EditText searchWord = findViewById(R.id.search_word);
+        ArrayList<Word> words = new ArrayList<>();
+        WordAdapter adapter = new WordAdapter(this, R.layout.custom_word_item, words,null);
+        wordList.setAdapter(adapter);
+
+//        searchWord.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                search((String) charSequence);
+//                for(int j=0; j<mSearchWord.size(); j++) words.add(mSearchWord.get(j));
+//                // words 정렬하기
+//
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                words.clear();
+//            }
+//        });
     }
 
     //searchText 포함된 단어 -> mSearchWord 삽입

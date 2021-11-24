@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,18 +27,21 @@ public class ListZip implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        changeImage();
+        Zip();
     }
 
-    private void changeImage() {
+    private void Zip() {
         if (isZipped) {
             zip_img.setVisibility(View.INVISIBLE);
             expand_img.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.VISIBLE);
             isZipped = false;
         } else {
             zip_img.setVisibility(View.VISIBLE);
             expand_img.setVisibility(View.INVISIBLE);
+            listView.setVisibility(View.GONE);
             isZipped = true;
         }
     }
+
 }
