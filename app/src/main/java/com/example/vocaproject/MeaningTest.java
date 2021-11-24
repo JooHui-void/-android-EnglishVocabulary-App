@@ -5,11 +5,17 @@ import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -19,38 +25,64 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MeaningTest extends AppCompatActivity {
+public class MeaningTest extends AppCompatActivity implements View.OnClickListener{
     private final static int ANSWER_NUMBER = 4;
 
     //@BindViews({/*정답버튼4개아이디*/})
-    List<Button> answerBtns;
+    List<Button> answerBtns=new ArrayList<>();
 
     private AppDatabase mDb;
     private WordDao mWordDao;
     private WordBookDao mWordBookDao;
 
-    private List<Integer> mWordIndex;
-    private List<String> mRandomAnswer;
-    private List<Word> mTestWord;
-    private List<WordBook> mTestWordBook;
+    private List<Integer> mWordIndex=new ArrayList<>();
+    private List<String> mRandomAnswer=new ArrayList<>();
+    private List<Word> mTestWord=new ArrayList<>();
+    private List<WordBook> mTestWordBook=new ArrayList<>();
     private int wordIndex = 0;
-
+    private int answerNum;
     private int day;
 
+    TextView quiz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meaning_test);
         ButterKnife.bind(this);
-
+        Intent intent = getIntent();
+        day = intent.getIntExtra("VocaDay", 0);
         mDb = AppDatabase.getInstance(this);
         mWordDao = mDb.wordDao();
         mWordBookDao = mDb.wordBookDao();
         startTest();
+
+        answerBtns.add(findViewById(R.id.bt1));
+        answerBtns.add(findViewById(R.id.bt2));
+        answerBtns.add(findViewById(R.id.bt3));
+        answerBtns.add(findViewById(R.id.bt4));
+
+
+        quiz= findViewById(R.id.quiz);
+        for(int i=0;i<4;i++){
+            answerBtns.get(i).setOnClickListener(this);
+        }
+
+        setfrontView();
+
+    }
+
+    private void setfrontView(){
+        for(int i=0;i<ANSWER_NUMBER;i++){
+            answerBtns.get(i).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#e0e0e0")));
+        }
+        quiz.setText(mTestWord.get(wordIndex).getWordEng());
+        newRandomAnswer(mTestWord.get(wordIndex).getWordKor());
+
     }
 
     // 랜덤 단어 버튼 생성을 위한 인덱스 설정
     private void setWordIndex(){
+
         for(int i = 0; i < mTestWord.size(); i++)
             mWordIndex.add(i);
     }
@@ -73,15 +105,20 @@ public class MeaningTest extends AppCompatActivity {
 
         Collections.shuffle(mRandomAnswer);
 
-        for(int i = 0; i < ANSWER_NUMBER; i++)
+        for(int i = 0; i < ANSWER_NUMBER; i++){
             answerBtns.get(i).setText(mRandomAnswer.get(i));
+            if(mTestWord.get(wordIndex).getWordKor().equals(mRandomAnswer.get(i))){
+                answerNum=i;
+            }
+        }
+
     }
 
     // 인덱스, 단어장, 단어 초기화
     private void startTest(){
         wordIndex = 0;
 
-        if(true/*전체 테스트면*/){
+        if(day==0){
             mTestWordBook = mWordBookDao.getAllWordBook();
             mTestWord = mWordDao.getData();
         }
@@ -117,7 +154,7 @@ public class MeaningTest extends AppCompatActivity {
             mWordDao.setUpdateWord(mTestWord.get(i));
         }
 
-        if (true/*전체 테스트면*/) {
+        if (day==0) {
             for(day = 1; day <= WORDBOOK_DAY_NUMBER; day++){
                 incorrectNum = mWordDao.getIncorrect(day);
                 mTestWordBook.get(day-1).setIncorrectNumber(incorrectNum);
@@ -141,18 +178,33 @@ public class MeaningTest extends AppCompatActivity {
         finish();
     }
 
-    @OnClick({/*버튼1, 버튼2, 버튼3, 버튼4*/})
-    public void onAnswerBtnClick(Button button){
-        if(isCorrect(button.getText().toString())){
-            Toast.makeText(this, "맞았습니다!", Toast.LENGTH_SHORT);
+
+    @Override
+    public void onClick(View v) {
+
+        if(isCorrect(((Button) v).getText().toString())){
+            v.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#51b34c")));
+//          Toast.makeText(this, "맞았습니다!", Toast.LENGTH_SHORT);
             mTestWord.get(wordIndex).setIsCorrect(1);
         }
         else {
-            Toast.makeText(this, "틀렸습니다!", Toast.LENGTH_SHORT);
+//          Toast.makeText(this, "틀렸습니다!", Toast.LENGTH_SHORT);
             mTestWord.get(wordIndex).setIsCorrect(0);
+            answerBtns.get(answerNum).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#51b34c")));
+            v.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d86464")));
         }
-        //넘어가기
-        //인덱스 +1
-    }
+        if(isEnd()){
+            endTest();
+        }else{
+            wordIndex++;
+            Handler mHandler = new Handler();
+            mHandler.postDelayed(new Runnable() {
+                public void run() {
+                    setfrontView();
+                } }, 1000);
 
+
+
+        }
+    }
 }

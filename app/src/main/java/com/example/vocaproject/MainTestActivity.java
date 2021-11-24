@@ -175,15 +175,16 @@ public class MainTestActivity extends AppCompatActivity {
                             );
                             intent.setComponent(componentName);
                             intent.putExtra("VocaDay",index);
-                            Log.d("index", String.valueOf(index));
+
                             startActivity(intent);
                             break ;
                         case R.id.mean_button:
                             componentName =new ComponentName(
                                     "com.example.vocaproject",
-                                    "com.example.vocaproject.FlashCardTest"
+                                    "com.example.vocaproject.MeaningTest"
                             );
                             intent.setComponent(componentName);
+                            intent.putExtra("VocaDay",index);
                             startActivity(intent);
                             break ;
                         case R.id.alphabet_button:
@@ -192,6 +193,7 @@ public class MainTestActivity extends AppCompatActivity {
                                     "com.example.vocaproject.FlashCardTest"
                             );
                             intent.setComponent(componentName);
+                            intent.putExtra("VocaDay",index);
                             startActivity(intent);
                             break ;
                     }
