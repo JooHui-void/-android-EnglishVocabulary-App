@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/wordbook"
-                android:backgroundTint="@color/deep_gray"
+                android:backgroundTint="@color/red"
                 android:text="몰라요"
                 android:textColor="@color/white" />
 
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/wordbook"
-                android:backgroundTint="@color/deep_gray"
+                android:backgroundTint="@color/green"
                 android:text="알아요"
                 android:textColor="@color/white" />
 
