@@ -72,11 +72,11 @@
                 android:layout_height="match_parent"
 
                 android:visibility="invisible">
+
                 <View
                     android:layout_width="match_parent"
-                    android:background="@drawable/wordbook"
-                    android:layout_height="match_parent">
-                </View>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/wordbook"></View>
                 <TextView
                     android:id="@+id/wordcnt2"
                     android:layout_width="wrap_content"
