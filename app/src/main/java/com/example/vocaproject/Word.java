@@ -14,7 +14,7 @@ public class Word implements Comparable<Word> {
     private String wordEng;
     @ColumnInfo
     private String wordKor;
-    @ColumnInfo(defaultValue = "0")
+    @ColumnInfo(defaultValue = "-1")
     private int isCorrect;
     @ColumnInfo(defaultValue = "0")
     private int isChecking;
