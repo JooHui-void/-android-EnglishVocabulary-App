@@ -20,7 +20,10 @@ public class SearchActivity extends AppCompatActivity {
     private WordBookDao mWordBookDao;
 
     private List<Word> mAllWord;
-    private List<Word> mSearchWord;
+    private List<Word> mSearchWord = new ArrayList<>();
+
+    WordAdapter adapter;
+    ListView wordList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,38 +37,35 @@ public class SearchActivity extends AppCompatActivity {
         mAllWord = mWordDao.getData();
         Collections.sort(mAllWord);
 
-        ListView wordList = (ListView)findViewById(R.id.dailyWord_listview);
-        EditText searchWord = findViewById(R.id.search_word);
-        ArrayList<Word> words = new ArrayList<>();
-        WordAdapter adapter = new WordAdapter(this, R.layout.custom_word_item, words,null);
-        wordList.setAdapter(adapter);
+        wordList = (ListView)findViewById(R.id.search_listview);
+        adapter = new WordAdapter(this, R.layout.custom_word_item, mSearchWord,null);
 
-//        searchWord.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                search((String) charSequence);
-//                for(int j=0; j<mSearchWord.size(); j++) words.add(mSearchWord.get(j));
-//                // words 정렬하기
-//
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                words.clear();
-//            }
-//        });
+        EditText searchWord = findViewById(R.id.search_word);
+        searchWord.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if (s != null) {
+                    search(s.toString());
+                    Log.i("I","search");
+                    if(mSearchWord != null) wordList.setAdapter(adapter);
+                    Log.i("I","adapter");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     //searchText 포함된 단어 -> mSearchWord 삽입
     private void search(String searchText){
-        mSearchWord.clear();
-
+        if(mSearchWord!= null) mSearchWord.clear();
         if(searchText.length() != 0){
             for(Word word: mAllWord)
             {
