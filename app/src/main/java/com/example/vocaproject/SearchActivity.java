@@ -1,3 +1,4 @@
+
 package com.example.vocaproject;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,15 +14,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity {
+    public class SearchActivity extends AppCompatActivity implements OnWordItemClick{
 
-    private AppDatabase mDb;
-    private WordDao mWordDao;
-    private WordBookDao mWordBookDao;
+        private AppDatabase mDb;
+        private WordDao mWordDao;
+        private WordBookDao mWordBookDao;
 
-    private List<Word> mAllWord;
-    private List<Word> mSearchWord = new ArrayList<>();
-
+        private List<Word> mAllWord;
+        private List<Word> mSearchWord = new ArrayList<>();
     WordAdapter adapter;
     ListView wordList;
 
@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity {
         Collections.sort(mAllWord);
 
         wordList = (ListView)findViewById(R.id.search_listview);
-        adapter = new WordAdapter(this, R.layout.custom_word_item, mSearchWord,null);
+        adapter = new WordAdapter(this, R.layout.custom_word_item, mSearchWord,this);
 
         EditText searchWord = findViewById(R.id.search_word);
         searchWord.addTextChangedListener(new TextWatcher() {
@@ -52,7 +52,6 @@ public class SearchActivity extends AppCompatActivity {
                 if (s != null) {
                     search(s.toString());
                     if(mSearchWord != null) wordList.setAdapter(adapter);
-                    WDao.setUpdateWord(word);
                 }
             }
 
@@ -75,4 +74,8 @@ public class SearchActivity extends AppCompatActivity {
             }
         }
     }
+        @Override
+        public void onWordItemClick(Word word){
+            mWordDao.setUpdateWord(word);
+        }
 }
