@@ -172,6 +172,9 @@ public class LoginActivity extends AppCompatActivity {
                     incorrectWord = mUserAccount.getIncorrectWord();                //유저의 데이터베이스에서 틀린단어 리스트를 불러옴
                     userView = mUserAccount.getUserView();                          //유저의 데이터베이스에서 유저뷰 리스트를 불러옴
 
+//                    for(int i=0; i<incorrectWord.size(); i++)
+//                        Log.d("Test: ", "test " + i + "번째 " + incorrectWord.get(i));
+
                     //word 정보 초기화
                     for (int i = 0; i < mTempWord.size()-1; i++) {
                         mTempWord.get(i).setIsCorrect(incorrectWord.get(i+1));
@@ -202,6 +205,6 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
                 Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
             }
-        }, 2500);
+        }, 500);
     }
 }

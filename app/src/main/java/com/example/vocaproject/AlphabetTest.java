@@ -16,6 +16,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -142,7 +143,6 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
             mTestWordBook.get(0).setViewNumber(mTestWordBook.get(0).getViewNumber()+1);
             userView.set(day, userView.get(day)+1);
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
-            mWordBookDao.setUpdateWordBook(mTestWordBook.get(day-1));
         }
 
         mUserAccount.setIncorrectWord(incorrectWord);
@@ -165,6 +165,7 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
                 mKorAnswer.setText(null);
                 break;
             case R.id.pass:
+                Log.d("Test: ", "Test " + mTestWord.get(wordIndex).getId());
                 incorrectWord.set(mTestWord.get(wordIndex).getId(), 0);
                 mTestWord.get(wordIndex).setIsCorrect(0);
                 incorrect++;

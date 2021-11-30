@@ -39,7 +39,7 @@ import butterknife.OnClick;
 public class MeaningTest extends AppCompatActivity implements View.OnClickListener{
     private final static int ANSWER_NUMBER = 4;
 
-    //@BindViews({/*정답버튼4개아이디*/})
+    @BindViews({R.id.bt1, R.id.bt2, R.id.bt3, R.id.bt4})
     List<Button> answerBtns=new ArrayList<>();
 
     private AppDatabase mDb;
@@ -71,10 +71,10 @@ public class MeaningTest extends AppCompatActivity implements View.OnClickListen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         startTest();
 
-        answerBtns.add(findViewById(R.id.bt1));
-        answerBtns.add(findViewById(R.id.bt2));
-        answerBtns.add(findViewById(R.id.bt3));
-        answerBtns.add(findViewById(R.id.bt4));
+//        answerBtns.add(findViewById(R.id.bt1));
+//        answerBtns.add(findViewById(R.id.bt2));
+//        answerBtns.add(findViewById(R.id.bt3));
+//        answerBtns.add(findViewById(R.id.bt4));
 
 
         quiz= findViewById(R.id.quiz);
@@ -201,6 +201,8 @@ public class MeaningTest extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
 
+        setBtnClickableFalse(answerBtns);
+
         if(isCorrect(((Button) v).getText().toString())){
             v.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#51b34c")));
 //          Toast.makeText(this, "맞았습니다!", Toast.LENGTH_SHORT);
@@ -222,12 +224,24 @@ public class MeaningTest extends AppCompatActivity implements View.OnClickListen
             mHandler.postDelayed(new Runnable() {
                 public void run() {
                     setfrontView();
+                    setBtnClickableTrue(answerBtns);
                 } }, 1000);
 
 
 
         }
     }
+
+    private void setBtnClickableFalse(List<Button> btn){
+        for(int i = 0; i<btn.size(); i++)
+            btn.get(i).setClickable(false);
+    }
+
+    private void setBtnClickableTrue(List<Button> btn){
+        for(int i = 0; i<btn.size(); i++)
+            btn.get(i).setClickable(true);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
