@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_play"
+        android:id="@+id/play"
         android:title="설정"
         android:icon="@drawable/icon_play"
         app:showAsAction="ifRoom"
@@ -11,7 +11,7 @@
 
         />
     <item
-        android:id="@+id/menu_sort"
+        android:id="@+id/sort"
         android:title="설정"
         android:icon="@drawable/icon_sort"
         app:showAsAction="ifRoom"

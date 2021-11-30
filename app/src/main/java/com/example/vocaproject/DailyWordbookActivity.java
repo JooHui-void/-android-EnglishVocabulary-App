@@ -70,7 +70,10 @@ public class DailyWordbookActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         //여기서부터 작성
         switch (item.getItemId()) {
-//            case android.R.id.home:
+            case R.id.play:
+
+
+            case R.id.menu:
 
             default:
                 return super.onOptionsItemSelected(item);
