@@ -2,8 +2,12 @@ package com.example.vocaproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -54,4 +58,23 @@ public class DailyWordbookActivity extends AppCompatActivity
 //
 //        startActivity(intent);
 //    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+//            case android.R.id.home:
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            MenuInflater menuInflater = getMenuInflater();
+            menuInflater.inflate(R.menu.wordlisttoolbar, menu);
+            return true;
+        }
 }

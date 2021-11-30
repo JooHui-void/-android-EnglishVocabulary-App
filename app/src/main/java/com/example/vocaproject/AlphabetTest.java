@@ -46,6 +46,7 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
     private int wordIndex = 0;
     private int day;
     TextView wordcnt;
+    int incorrect=0;
     Button bt1,bt2,bt3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
     // 인덱스, 단어장, 단어 초기화
     private void startTest() {
         wordIndex = 0;
-
+        incorrect=0;
         if (day==0) {
             mTestWordBook = mWordBookDao.getAllWordBook();
             mTestWord = mWordDao.getData();
@@ -120,7 +121,7 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
             mWordDao.setUpdateWord(mTestWord.get(i));
         }
 
-        if (true/*전체 테스트면*/) {
+        if (day==0) {
             for(day = 1; day <= WORDBOOK_DAY_NUMBER; day++){
                 incorrectNum = mWordDao.getIncorrect(day);
                 mTestWordBook.get(day-1).setIncorrectNumber(incorrectNum);
@@ -133,7 +134,7 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
             mTestWordBook.get(0).setIncorrectNumber(incorrectNum);
             mTestWordBook.get(0).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
             mTestWordBook.get(0).setViewNumber(mTestWordBook.get(0).getViewNumber()+1);
-            mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
+            mWordBookDao.setUpdateWordBook(mTestWordBook.get(day-1));
         }
 
         Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT);
@@ -153,7 +154,8 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
                 mKorAnswer.setText(null);
                 break;
             case R.id.pass:
-                mTestWord.get(wordIndex).setIsCorrect(0);
+                mTestWord.get(wordIndex).setIsCorrect(1);
+                incorrect++;
                 Toast.makeText(getApplicationContext(), "답은 "+ mTestWord.get(wordIndex).getWordEng() +" 입니다!", Toast.LENGTH_SHORT).show();
                 if(wordIndex<15){
                     wordIndex++;

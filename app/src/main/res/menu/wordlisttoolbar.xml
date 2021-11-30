@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_play"
+        android:title="설정"
+        android:icon="@drawable/icon_play"
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/white"
+
+        />
+    <item
+        android:id="@+id/menu_sort"
+        android:title="설정"
+        android:icon="@drawable/icon_setting"
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/white"
+
+        />
+
+</menu>

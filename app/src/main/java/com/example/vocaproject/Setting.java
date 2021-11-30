@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
@@ -14,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.InputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -60,6 +63,7 @@ public class Setting extends AppCompatActivity implements View.OnClickListener{
                 Button woman1=dialog.findViewById(R.id.woman1);
                 Button woman2=dialog.findViewById(R.id.woman2);
                 Button camera = dialog.findViewById(R.id.camera);
+                Button camera2 = dialog.findViewById(R.id.camera2);
                 man1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -98,19 +102,43 @@ public class Setting extends AppCompatActivity implements View.OnClickListener{
                         dialog.dismiss();
                     }
                 });
+                camera2.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(intent,1);
+                        dialog.dismiss();
+                    }
+                });
                 dialog.show();
                 break;
 
             }
 
         }
-    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    { super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0 && resultCode == RESULT_OK) {
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             myprofile.setImageBitmap(imageBitmap);
+        } else if (requestCode == 1 && resultCode == RESULT_OK) {
+            try {
+                InputStream in = getContentResolver().openInputStream(data.getData());
+
+                Bitmap img = BitmapFactory.decodeStream(in);
+                in.close();
+
+                myprofile.setImageBitmap(img);
+            } catch (Exception e) {
+
+            }
         }
+
+
     }
 
 
