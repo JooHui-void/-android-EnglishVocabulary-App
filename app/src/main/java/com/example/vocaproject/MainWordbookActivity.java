@@ -69,7 +69,7 @@ public class MainWordbookActivity extends AppCompatActivity
         for(int i=0;i<wordbooks.size();i++) {
             if (DAY == wordbooks.get(i).getDay()) {
                 todayData.add(wordbooks.get(i));
-            } else if (wordbooks.get(i).getCorrectNumber() == MainActivity.DAILY_VOCA_NUMBER) {
+            } else if (wordbooks.get(i).getIncorrectNumber() == 0 && wordbooks.get(i).getViewNumber() > 0) {
                 doneDatas.add(wordbooks.get(i));
             } else {
                 remainDatas.add(wordbooks.get(i));
