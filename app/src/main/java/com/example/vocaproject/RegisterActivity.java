@@ -1,7 +1,9 @@
 package com.example.vocaproject;
 
+import static com.example.vocaproject.LoginActivity.mUserAccount;
 import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
 import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
+import static com.example.vocaproject.MainTestActivity.mUser;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +62,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private ProgressDialog customProgressDialog;
 
+    private Uri imageUri;
+
     private FirebaseAuth mFirebaseAuth; //파이어베이스 인증
     private FirebaseStorage mStorage;
     private DatabaseReference mDatabaseRef; //실시간 데이터베이스
@@ -102,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(email.length()>0 && password.length()>5 && userName.length()>0) {
+                if (email.length() > 0 && password.length() > 5 && userName.length() > 0) {
                     mBtnRegister.setEnabled(true);
                     mBtnRegister.setBackgroundColor(Color.BLACK);
                 } else {
@@ -124,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(email.length()>0 && password.length()>5 && userName.length()>0) {
+                if (email.length() > 0 && password.length() > 5 && userName.length() > 0) {
                     mBtnRegister.setEnabled(true);
                     mBtnRegister.setBackgroundColor(Color.BLACK);
                 } else {
@@ -145,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(email.length()>0 && password.length()>5 && userName.length()>0) {
+                if (email.length() > 0 && password.length() > 5 && userName.length() > 0) {
                     mBtnRegister.setEnabled(true);
                     mBtnRegister.setBackgroundColor(Color.BLACK);
                 } else {
@@ -156,8 +160,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         //회원가이 버튼 클릭 이벤트
-        mBtnRegister.setOnClickListener(new View.OnClickListener()
-        {
+        mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(@NonNull View view) {
                 customProgressDialog.show();
@@ -183,6 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
                             account.setName(strName);
                             account.setIncorrectWord(inCorrectWord);
                             account.setUserView(userView);
+//                            account.setProfileImageUrl(imageUri.toString());
 
                             mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
 
@@ -199,11 +203,11 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void resetIncorrectWord(){
+    private void resetIncorrectWord() {
         inCorrectWord = new ArrayList<Integer>(Collections.nCopies(WORDBOOK_DAY_NUMBER * DAILY_VOCA_NUMBER + 1, -1));
     }
 
-    private void resetUserView(){
+    private void resetUserView() {
         userView = new ArrayList<Integer>(Collections.nCopies(WORDBOOK_DAY_NUMBER + 1, 0));
     }
 }
