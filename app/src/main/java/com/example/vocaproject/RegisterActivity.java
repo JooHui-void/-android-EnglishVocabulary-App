@@ -1,5 +1,8 @@
 package com.example.vocaproject;
 
+import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
+import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.CursorLoader;
@@ -7,6 +10,7 @@ import androidx.loader.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,11 +43,15 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
     public static final int PICK_FROM_ALBUM = 1;
+
+    private ProgressDialog customProgressDialog;
 
     private FirebaseAuth mFirebaseAuth; //파이어베이스 인증
     private FirebaseStorage mStorage;
@@ -56,6 +64,10 @@ public class RegisterActivity extends AppCompatActivity {
     private File tempFile;
     private ImageView profile;
 
+    private List<Integer> inCorrectWord;
+    private List<Integer> checkingWord;
+    private List<Integer> userView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +75,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         AppDatabase db = AppDatabase.getInstance(this);
         WordBookDao WBDao = db.wordBookDao();
+
+        customProgressDialog = new ProgressDialog(this);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mStorage = FirebaseStorage.getInstance();
@@ -153,6 +168,8 @@ public class RegisterActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(@NonNull View view) {
+                customProgressDialog.show();
+
                 String strEmail = email.getText().toString();
                 String strPwd = password.getText().toString();
                 String strName = userName.getText().toString();
@@ -176,20 +193,28 @@ public class RegisterActivity extends AppCompatActivity {
                                     FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
                                     UserAccount account = new UserAccount();
 
+                                    resetIncorrectWord();
+//                                    resetCheckingWord();
+                                    resetUserView();
+
                                     account.setIdToken(firebaseUser.getUid());
                                     account.setEmailId(firebaseUser.getEmail());
                                     account.setPassword(strPwd);
                                     account.setName(strName);
                                     account.setProfileImageUrl(imageUrl.getResult().toString());
+                                    account.setIncorrectWord(inCorrectWord);
+//                                    account.setCheckingWord(checkingWord);
+                                    account.setUserView(userView);
 
                                     mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
                                 }
 
                             });
-
+                            customProgressDialog.dismiss();
                             Toast.makeText(RegisterActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
+                            customProgressDialog.dismiss();
                             Toast.makeText(RegisterActivity.this, "회원가입 실패.. 사용할 수 없는 이메일입니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -240,4 +265,17 @@ public class RegisterActivity extends AppCompatActivity {
         cursor.moveToFirst();
         return cursor.getString(index);
     }
+
+    private void resetIncorrectWord(){
+        inCorrectWord = new ArrayList<Integer>(Collections.nCopies(WORDBOOK_DAY_NUMBER * DAILY_VOCA_NUMBER + 1, -1));
+    }
+
+//    private void resetCheckingWord(){
+//        checkingWord = new ArrayList<Integer>(Collections.nCopies(WORDBOOK_DAY_NUMBER * DAILY_VOCA_NUMBER, 0));
+//    }
+//
+    private void resetUserView(){
+        userView = new ArrayList<Integer>(Collections.nCopies(WORDBOOK_DAY_NUMBER + 1, 0));
+    }
+
 }

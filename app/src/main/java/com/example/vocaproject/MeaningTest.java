@@ -1,7 +1,11 @@
 package com.example.vocaproject;
 
+import static com.example.vocaproject.LoginActivity.incorrectWord;
+import static com.example.vocaproject.LoginActivity.mUserAccount;
+import static com.example.vocaproject.LoginActivity.userView;
 import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
 import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
+import static com.example.vocaproject.MainTestActivity.mUser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,6 +23,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -169,15 +175,19 @@ public class MeaningTest extends AppCompatActivity implements View.OnClickListen
                 mTestWordBook.get(day-1).setIncorrectNumber(incorrectNum);
                 mTestWordBook.get(day-1).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
                 mTestWordBook.get(day-1).setViewNumber(mTestWordBook.get(day-1).getViewNumber()+1);
-                mWordBookDao.setUpdateWordBook(mTestWordBook.get(day));
+                mWordBookDao.setUpdateWordBook(mTestWordBook.get(day-1));
             }
         }else {
             incorrectNum = mWordDao.getIncorrect(day);
             mTestWordBook.get(0).setIncorrectNumber(incorrectNum);
             mTestWordBook.get(0).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
             mTestWordBook.get(0).setViewNumber(mTestWordBook.get(0).getViewNumber()+1);
+            userView.set(day, userView.get(day)+1);
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
         }
+
+        mUserAccount.setIncorrectWord(incorrectWord);
+        FirebaseDatabase.getInstance().getReference("VocaProject").child("UserAccount").child(mUser.getUid()).setValue(mUserAccount);
 
         Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT).show();
         endActivity();
@@ -194,10 +204,12 @@ public class MeaningTest extends AppCompatActivity implements View.OnClickListen
         if(isCorrect(((Button) v).getText().toString())){
             v.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#51b34c")));
 //          Toast.makeText(this, "맞았습니다!", Toast.LENGTH_SHORT);
+            incorrectWord.set(mTestWord.get(wordIndex).getId(), 1);
             mTestWord.get(wordIndex).setIsCorrect(1);
         }
         else {
 //          Toast.makeText(this, "틀렸습니다!", Toast.LENGTH_SHORT);
+            incorrectWord.set(mTestWord.get(wordIndex).getId(), 0);
             mTestWord.get(wordIndex).setIsCorrect(0);
             answerBtns.get(answerNum).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#51b34c")));
             v.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d86464")));

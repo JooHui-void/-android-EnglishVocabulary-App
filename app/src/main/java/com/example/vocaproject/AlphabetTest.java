@@ -1,7 +1,11 @@
 package com.example.vocaproject;
 
+import static com.example.vocaproject.LoginActivity.incorrectWord;
+import static com.example.vocaproject.LoginActivity.mUserAccount;
+import static com.example.vocaproject.LoginActivity.userView;
 import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
 import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
+import static com.example.vocaproject.MainTestActivity.mUser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +24,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -120,23 +126,27 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
             mWordDao.setUpdateWord(mTestWord.get(i));
         }
 
-        if (true/*전체 테스트면*/) {
+        if (day==0) {
             for(day = 1; day <= WORDBOOK_DAY_NUMBER; day++){
                 incorrectNum = mWordDao.getIncorrect(day);
                 mTestWordBook.get(day-1).setIncorrectNumber(incorrectNum);
                 mTestWordBook.get(day-1).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
                 mTestWordBook.get(day-1).setViewNumber(mTestWordBook.get(day-1).getViewNumber()+1);
-                mWordBookDao.setUpdateWordBook(mTestWordBook.get(day));
+                mWordBookDao.setUpdateWordBook(mTestWordBook.get(day-1));
             }
         }else {
             incorrectNum = mWordDao.getIncorrect(day);
             mTestWordBook.get(0).setIncorrectNumber(incorrectNum);
             mTestWordBook.get(0).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
             mTestWordBook.get(0).setViewNumber(mTestWordBook.get(0).getViewNumber()+1);
+            userView.set(day, userView.get(day)+1);
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
         }
 
-        Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT);
+        mUserAccount.setIncorrectWord(incorrectWord);
+        FirebaseDatabase.getInstance().getReference("VocaProject").child("UserAccount").child(mUser.getUid()).setValue(mUserAccount);
+
+        Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT).show();
         endActivity();
     }
 
@@ -153,9 +163,10 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
                 mKorAnswer.setText(null);
                 break;
             case R.id.pass:
+                incorrectWord.set(mTestWord.get(wordIndex).getId(), 0);
                 mTestWord.get(wordIndex).setIsCorrect(0);
                 Toast.makeText(getApplicationContext(), "답은 "+ mTestWord.get(wordIndex).getWordEng() +" 입니다!", Toast.LENGTH_SHORT).show();
-                if(wordIndex<15){
+                if(wordIndex<DAILY_VOCA_NUMBER-1){
                     wordIndex++;
                     setView();
                 }else{
@@ -166,8 +177,9 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
                 if(isCorrect(mKorAnswer.getText().toString())){
                     Toast.makeText( getApplicationContext(), "맞았습니다!", Toast.LENGTH_SHORT).show();
                     mKorAnswer.setText(null);
-                    mTestWord.get(wordIndex).setIsCorrect(0);
-                    if(wordIndex<15){
+                    incorrectWord.set(mTestWord.get(wordIndex).getId(), 1);
+                    mTestWord.get(wordIndex).setIsCorrect(1);
+                    if(wordIndex<DAILY_VOCA_NUMBER-1){
                         wordIndex++;
                         setView();
                     }else{
