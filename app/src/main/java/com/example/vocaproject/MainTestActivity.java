@@ -58,6 +58,8 @@ public class MainTestActivity extends AppCompatActivity {
     View view;
     View view2;
     Context context;
+    MyAdapter adapter;
+    ListView listview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,7 @@ public class MainTestActivity extends AppCompatActivity {
 //           Log.d("Test", booklist.get(i).getDay() + "\n");
 //        }
         inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ListView listview = findViewById(R.id.listv);
+        listview = findViewById(R.id.listv);
         view2 = getLayoutInflater().inflate(R.layout.activity_main_test,null);
 
 
@@ -88,7 +90,7 @@ public class MainTestActivity extends AppCompatActivity {
             arrayList.add(booklist.get(i));
         }
 
-        MyAdapter adapter = new MyAdapter(this,arrayList);
+        adapter = new MyAdapter(this,arrayList);
         listview.setAdapter(adapter);
 
 
@@ -105,6 +107,18 @@ public class MainTestActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        booklist = mWordBookDao.getAll();
+        ArrayList<WordBook> arrayList= new ArrayList<WordBook>();
+        for(int i=0;i<booklist.size();i++){
+            arrayList.add(booklist.get(i));
+        }
+        adapter = new MyAdapter(this,arrayList);
+        listview.setAdapter(adapter);
     }
 
     public class MyAdapter extends BaseAdapter {
