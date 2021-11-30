@@ -15,8 +15,15 @@
         android:title="설정"
         android:icon="@drawable/icon_sort"
         app:showAsAction="ifRoom"
-        android:iconTint="@color/white"
+        android:iconTint="@color/white">
 
-        />
-
+        <menu>
+            <item android:id="@+id/sort_eng"
+                android:title="영어 순서"/>
+            <item android:id="@+id/sort_kor"
+                android:title="한글 순서"/>
+            <item android:id="@+id/sort_importance"
+                android:title="중요한 순서"/>
+        </menu>
+    </item>
 </menu>
