@@ -60,12 +60,6 @@
                     android:layout_gravity="center"
                     android:src="@drawable/icon_man" />
 
-                <Button
-                    android:id="@+id/face"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:backgroundTint="#00000000"
-                    android:visibility="visible" />
             </RelativeLayout>
 
             <LinearLayout

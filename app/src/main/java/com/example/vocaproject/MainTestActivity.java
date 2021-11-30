@@ -152,7 +152,7 @@ public class MainTestActivity extends AppCompatActivity {
             WordBook tmp = book.get(position);
             day.setText(Integer.toString(book.get(position).getDay()));
             play.setText(Integer.toString(book.get(position).getViewNumber()));
-            cor.setText(Integer.toString(book.get(position).getCheckNumber()));
+            cor.setText(Integer.toString(book.get(position).getCorrectNumber()));
             incor.setText(Integer.toString(book.get(position).getIncorrectNumber()));
 
             final Button spread = (Button)view.findViewById(R.id.spread);

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.CursorLoader;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -17,7 +18,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +32,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
@@ -47,9 +54,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RegisterActivity extends AppCompatActivity {
+import de.hdodenhof.circleimageview.CircleImageView;
 
-    public static final int PICK_FROM_ALBUM = 1;
+public class RegisterActivity extends AppCompatActivity {
 
     private ProgressDialog customProgressDialog;
 
@@ -59,13 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button mBtnRegister;
     private EditText email, password, userName;
 
-    private Uri imageUri;
-    private String pathUri;
-    private File tempFile;
-    private ImageView profile;
-
     private List<Integer> inCorrectWord;
-    private List<Integer> checkingWord;
     private List<Integer> userView;
 
     @Override
@@ -87,17 +88,8 @@ public class RegisterActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.idText);
         password = (EditText) findViewById(R.id.passwordText);
         userName = (EditText) findViewById(R.id.myName);
-        profile = (ImageView) findViewById(R.id.Myprofile);
 
         mBtnRegister.setEnabled(false);
-
-        //프로필 사진 설정
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gotoAlbum();
-            }
-        });
 
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -179,37 +171,21 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            final String uid = task.getResult().getUser().getUid();
-                            final Uri file = Uri.fromFile(new File(pathUri));
+                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                            UserAccount account = new UserAccount();
 
-                            StorageReference storageReference = mStorage.getReference()
-                                    .child("usersprofileImages").child("uid/"+file.getLastPathSegment());
-                            storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                    final Task<Uri> imageUrl = task.getResult().getStorage().getDownloadUrl();
-                                    while (!imageUrl.isComplete()) ;
+                            resetIncorrectWord();
+                            resetUserView();
 
-                                    FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-                                    UserAccount account = new UserAccount();
+                            account.setIdToken(firebaseUser.getUid());
+                            account.setEmailId(firebaseUser.getEmail());
+                            account.setPassword(strPwd);
+                            account.setName(strName);
+                            account.setIncorrectWord(inCorrectWord);
+                            account.setUserView(userView);
 
-                                    resetIncorrectWord();
-//                                    resetCheckingWord();
-                                    resetUserView();
+                            mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
 
-                                    account.setIdToken(firebaseUser.getUid());
-                                    account.setEmailId(firebaseUser.getEmail());
-                                    account.setPassword(strPwd);
-                                    account.setName(strName);
-                                    account.setProfileImageUrl(imageUrl.getResult().toString());
-                                    account.setIncorrectWord(inCorrectWord);
-//                                    account.setCheckingWord(checkingWord);
-                                    account.setUserView(userView);
-
-                                    mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
-                                }
-
-                            });
                             customProgressDialog.dismiss();
                             Toast.makeText(RegisterActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
                             finish();
@@ -223,59 +199,11 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void gotoAlbum(){
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, PICK_FROM_ALBUM);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) { // 코드가 틀릴경우
-            if (tempFile != null) {
-                if (tempFile.exists()) {
-                    if (tempFile.delete()) {
-                        tempFile = null;
-                    }
-                }
-            }
-            return;
-        }
-
-        switch (requestCode) {
-            case PICK_FROM_ALBUM: { // 코드 일치
-                // Uri
-                imageUri = data.getData();
-                pathUri = getPath(data.getData());
-                profile.setImageURI(imageUri); // 이미지 띄움
-                break;
-            }
-        }
-    }
-
-    public String getPath(Uri uri) {
-
-        String[] proj = {MediaStore.Images.Media.DATA};
-        CursorLoader cursorLoader = new CursorLoader(this, uri, proj, null, null, null);
-
-        Cursor cursor = cursorLoader.loadInBackground();
-        int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-        cursor.moveToFirst();
-        return cursor.getString(index);
-    }
-
     private void resetIncorrectWord(){
         inCorrectWord = new ArrayList<Integer>(Collections.nCopies(WORDBOOK_DAY_NUMBER * DAILY_VOCA_NUMBER + 1, -1));
     }
 
-//    private void resetCheckingWord(){
-//        checkingWord = new ArrayList<Integer>(Collections.nCopies(WORDBOOK_DAY_NUMBER * DAILY_VOCA_NUMBER, 0));
-//    }
-//
     private void resetUserView(){
         userView = new ArrayList<Integer>(Collections.nCopies(WORDBOOK_DAY_NUMBER + 1, 0));
     }
-
 }
