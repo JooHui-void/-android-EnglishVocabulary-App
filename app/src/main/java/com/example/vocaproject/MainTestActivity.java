@@ -185,7 +185,6 @@ public class MainTestActivity extends AppCompatActivity {
                             );
                             intent.setComponent(componentName);
                             intent.putExtra("VocaDay",index);
-
                             startActivity(intent);
                             break ;
                         case R.id.mean_button:

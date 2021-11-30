@@ -3,6 +3,7 @@ package com.example.vocaproject;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TabHost;
 
 public class TabActivity extends ActivityGroup {
@@ -23,22 +24,21 @@ public class TabActivity extends ActivityGroup {
         // 테스트 액티비티
         spec = tabHost.newTabSpec("tab2")
                 .setIndicator(null, getResources().getDrawable(R.drawable.icon_test))
-                .setContent(new Intent(this,MainTestActivity.class));
+                .setContent(new Intent(this,MainTestActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         tabHost.addTab(spec);
 
         // 즐겨찾기 액티비티
         spec = tabHost.newTabSpec("tab3")
                 .setIndicator(null, getResources().getDrawable(R.drawable.icon_heart))
-                .setContent(new Intent(this,BookmarkActivity.class));
+                .setContent(new Intent(this,BookmarkActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         tabHost.addTab(spec);
 
         // 탐색 액티비티
         spec = tabHost.newTabSpec("tab4")
                 .setIndicator(null, getResources().getDrawable(R.drawable.icon_search))
-                .setContent(new Intent(this,SearchActivity.class));
+                .setContent(new Intent(this,SearchActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         tabHost.addTab(spec);
 
         tabHost.setCurrentTabByTag("tab1");
     }
-
 }
