@@ -1,6 +1,7 @@
 package com.example.vocaproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -27,6 +28,13 @@ public class DailyWordbookActivity extends AppCompatActivity
         setContentView(R.layout.activity_daily_wordbook);
 
         ListView wordList = (ListView)findViewById(R.id.dailyWord_listview);
+
+
+        Toolbar myToolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
 
         AppDatabase db = AppDatabase.getInstance(this);
         WordDao WDao = db.wordDao();
@@ -60,7 +68,7 @@ public class DailyWordbookActivity extends AppCompatActivity
 //    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        //여기서부터 작성
         switch (item.getItemId()) {
 //            case android.R.id.home:
 
