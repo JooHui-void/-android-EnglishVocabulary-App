@@ -100,6 +100,7 @@ public class FlashCardTest extends AppCompatActivity {
 
         for (int i = 0; i < mTestWord.size(); i++) {
             mWordDao.setUpdateWord(mTestWord.get(i));
+            Log.d("Test: ", mTestWord.get(i).getWordEng() + mTestWord.get(i).getIsCorrect());
         }
 
         if (day==0) {
@@ -152,9 +153,6 @@ public class FlashCardTest extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            if (isEnd()) {
-                endTest();
-            } else {
                 switch (view.getId()) {
                     case R.id.card:
                         if (cardside == 0) {
@@ -167,17 +165,19 @@ public class FlashCardTest extends AppCompatActivity {
                         break;
                     case R.id.know:
                         mTestWord.get(wordIndex).setIsCorrect(1);
-                        wordIndex++;
-                        setfrontView();
                         break;
                     case R.id.dont_know:
                         mTestWord.get(wordIndex).setIsCorrect(0);
-                        wordIndex++;
-                        setfrontView();
                         break;
                 }
+
+                if (isEnd()) {
+                    endTest();
+                } else {
+                    wordIndex++;
+                    setfrontView();
+                }
             }
-        }
     } ;
 
 }
