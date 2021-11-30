@@ -117,6 +117,7 @@ public class FlashCardTest extends AppCompatActivity {
             }
         }else {
             incorrectNum = mWordDao.getIncorrect(day);
+
             mTestWordBook.get(0).setIncorrectNumber(incorrectNum);
             mTestWordBook.get(0).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
             mTestWordBook.get(0).setViewNumber(mTestWordBook.get(0).getViewNumber()+1);

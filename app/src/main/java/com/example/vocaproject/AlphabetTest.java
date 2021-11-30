@@ -52,6 +52,7 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
     private int wordIndex = 0;
     private int day;
     TextView wordcnt;
+    int incorrect=0;
     Button bt1,bt2,bt3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
     // 인덱스, 단어장, 단어 초기화
     private void startTest() {
         wordIndex = 0;
-
+        incorrect=0;
         if (day==0) {
             mTestWordBook = mWordBookDao.getAllWordBook();
             mTestWord = mWordDao.getData();
@@ -141,6 +142,7 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
             mTestWordBook.get(0).setViewNumber(mTestWordBook.get(0).getViewNumber()+1);
             userView.set(day, userView.get(day)+1);
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
+            mWordBookDao.setUpdateWordBook(mTestWordBook.get(day-1));
         }
 
         mUserAccount.setIncorrectWord(incorrectWord);
@@ -165,6 +167,7 @@ public class AlphabetTest extends AppCompatActivity implements View.OnClickListe
             case R.id.pass:
                 incorrectWord.set(mTestWord.get(wordIndex).getId(), 0);
                 mTestWord.get(wordIndex).setIsCorrect(0);
+                incorrect++;
                 Toast.makeText(getApplicationContext(), "답은 "+ mTestWord.get(wordIndex).getWordEng() +" 입니다!", Toast.LENGTH_SHORT).show();
                 if(wordIndex<DAILY_VOCA_NUMBER-1){
                     wordIndex++;
