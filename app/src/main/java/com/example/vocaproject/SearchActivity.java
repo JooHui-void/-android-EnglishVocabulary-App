@@ -51,9 +51,8 @@ public class SearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int i, int i1, int i2) {
                 if (s != null) {
                     search(s.toString());
-                    Log.i("I","search");
                     if(mSearchWord != null) wordList.setAdapter(adapter);
-                    Log.i("I","adapter");
+                    WDao.setUpdateWord(word);
                 }
             }
 
