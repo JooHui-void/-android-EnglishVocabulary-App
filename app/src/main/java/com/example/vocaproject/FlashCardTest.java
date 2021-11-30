@@ -119,7 +119,7 @@ public class FlashCardTest extends AppCompatActivity {
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
         }
 
-        Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_LONG);
+        Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT).show();
         endActivity();
     }
 

@@ -179,7 +179,7 @@ public class MeaningTest extends AppCompatActivity implements View.OnClickListen
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
         }
 
-        Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT).show();
         endActivity();
     }
 
