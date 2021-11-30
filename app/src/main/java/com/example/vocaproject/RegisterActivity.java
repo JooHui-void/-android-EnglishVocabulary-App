@@ -43,7 +43,7 @@ import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    public static final int PICK_IMAGE = 1;
+    public static final int PICK_FROM_ALBUM = 1;
 
     private FirebaseAuth mFirebaseAuth; //파이어베이스 인증
     private FirebaseStorage mStorage;
@@ -53,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Uri imageUri;
     private String pathUri;
+    private File tempFile;
     private ImageView profile;
 
     @Override
@@ -64,8 +65,10 @@ public class RegisterActivity extends AppCompatActivity {
         WordBookDao WBDao = db.wordBookDao();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+        mStorage = FirebaseStorage.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("VocaProject");
         mBtnRegister = (Button) findViewById(R.id.registerButton);
+
         email = (EditText) findViewById(R.id.idText);
         password = (EditText) findViewById(R.id.passwordText);
         userName = (EditText) findViewById(R.id.myName);
@@ -77,9 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+                gotoAlbum();
             }
         });
 
@@ -161,15 +162,31 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-                            UserAccount account = new UserAccount();
+                            final String uid = task.getResult().getUser().getUid();
+                            final Uri file = Uri.fromFile(new File(pathUri));
 
-                            account.setIdToken(firebaseUser.getUid());
-                            account.setEmailId(firebaseUser.getEmail());
-                            account.setPassword(strPwd);
-                            account.setName(strName);
+                            StorageReference storageReference = mStorage.getReference()
+                                    .child("usersprofileImages").child("uid/"+file.getLastPathSegment());
+                            storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                    final Task<Uri> imageUrl = task.getResult().getStorage().getDownloadUrl();
+                                    while (!imageUrl.isComplete()) ;
 
-                            mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
+                                    FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                                    UserAccount account = new UserAccount();
+
+                                    account.setIdToken(firebaseUser.getUid());
+                                    account.setEmailId(firebaseUser.getEmail());
+                                    account.setPassword(strPwd);
+                                    account.setName(strName);
+                                    account.setProfileImageUrl(imageUrl.getResult().toString());
+
+                                    mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
+                                }
+
+                            });
+
                             Toast.makeText(RegisterActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
@@ -181,13 +198,34 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void gotoAlbum(){
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        startActivityForResult(intent, PICK_FROM_ALBUM);
+    }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE) {
-            imageUri = data.getData();
-            pathUri = getPath(data.getData());
-            profile.setImageURI(imageUri); // 이미지 띄움
+        if (resultCode != RESULT_OK) { // 코드가 틀릴경우
+            if (tempFile != null) {
+                if (tempFile.exists()) {
+                    if (tempFile.delete()) {
+                        tempFile = null;
+                    }
+                }
+            }
+            return;
+        }
+
+        switch (requestCode) {
+            case PICK_FROM_ALBUM: { // 코드 일치
+                // Uri
+                imageUri = data.getData();
+                pathUri = getPath(data.getData());
+                profile.setImageURI(imageUri); // 이미지 띄움
+                break;
+            }
         }
     }
 
