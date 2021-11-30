@@ -27,6 +27,11 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +46,10 @@ abstract class KnowIndexOnClickListener implements View.OnClickListener {
 }
 
 public class MainTestActivity extends AppCompatActivity {
+
+    public static FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+    private static DatabaseReference mUserDatabase = FirebaseDatabase.getInstance().getReference("VocaProject");
+
     List<WordBook> booklist;
     private AppDatabase db;
     private WordDao mWordDao;

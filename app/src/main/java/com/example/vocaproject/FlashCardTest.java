@@ -1,7 +1,11 @@
 package com.example.vocaproject;
 
+import static com.example.vocaproject.LoginActivity.incorrectWord;
+import static com.example.vocaproject.LoginActivity.mUserAccount;
+import static com.example.vocaproject.LoginActivity.userView;
 import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
 import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
+import static com.example.vocaproject.MainTestActivity.mUser;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.w3c.dom.Text;
 
 import java.util.Collections;
@@ -24,7 +30,6 @@ import java.util.List;
 import butterknife.OnClick;
 
 public class FlashCardTest extends AppCompatActivity {
-
     TextView alpha2,kor2;
     RelativeLayout front;
     RelativeLayout back;
@@ -100,7 +105,6 @@ public class FlashCardTest extends AppCompatActivity {
 
         for (int i = 0; i < mTestWord.size(); i++) {
             mWordDao.setUpdateWord(mTestWord.get(i));
-            Log.d("Test: ", mTestWord.get(i).getWordEng() + mTestWord.get(i).getIsCorrect());
         }
 
         if (day==0) {
@@ -109,7 +113,7 @@ public class FlashCardTest extends AppCompatActivity {
                 mTestWordBook.get(day-1).setIncorrectNumber(incorrectNum);
                 mTestWordBook.get(day-1).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
                 mTestWordBook.get(day-1).setViewNumber(mTestWordBook.get(day-1).getViewNumber()+1);
-                mWordBookDao.setUpdateWordBook(mTestWordBook.get(day));
+                mWordBookDao.setUpdateWordBook(mTestWordBook.get(day-1));
             }
         }else {
             incorrectNum = mWordDao.getIncorrect(day);
@@ -117,8 +121,12 @@ public class FlashCardTest extends AppCompatActivity {
             mTestWordBook.get(0).setIncorrectNumber(incorrectNum);
             mTestWordBook.get(0).setCorrectNumber(DAILY_VOCA_NUMBER - incorrectNum);
             mTestWordBook.get(0).setViewNumber(mTestWordBook.get(0).getViewNumber()+1);
+            userView.set(day, userView.get(day)+1);
             mWordBookDao.setUpdateWordBook(mTestWordBook.get(0));
         }
+
+        mUserAccount.setIncorrectWord(incorrectWord);
+        FirebaseDatabase.getInstance().getReference("VocaProject").child("UserAccount").child(mUser.getUid()).setValue(mUserAccount);
 
         Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT).show();
         endActivity();
@@ -164,9 +172,11 @@ public class FlashCardTest extends AppCompatActivity {
                         }
                         break;
                     case R.id.know:
+                        incorrectWord.set(mTestWord.get(wordIndex).getId(), 1);
                         mTestWord.get(wordIndex).setIsCorrect(1);
                         break;
                     case R.id.dont_know:
+                        incorrectWord.set(mTestWord.get(wordIndex).getId(), 0);
                         mTestWord.get(wordIndex).setIsCorrect(0);
                         break;
                 }

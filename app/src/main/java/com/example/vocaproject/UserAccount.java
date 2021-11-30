@@ -10,8 +10,8 @@ public class UserAccount {
     private String name;
     private String profileImageUrl;
 
-//    private List<WordBook> myBook;
-//    private List<Integer> myInfo;
+    private List<Integer> incorrectWord;
+    private List<Integer> userView;
 
     public String getIdToken() {
         return idToken;
@@ -55,19 +55,19 @@ public class UserAccount {
         this.profileImageUrl = profileImageUrl;
     }
 
-    //    public List<WordBook> getMyBook() {
-//        return myBook;
-//    }
-//
-//    public void setMyBook(List<WordBook> myBook) {
-//        this.myBook = myBook;
-//    }
-//
-//    public List<Integer> getMyInfo() {
-//        return myInfo;
-//    }
-//
-//    public void setMyInfo(List<Integer> myInfo) {
-//        this.myInfo = myInfo;
-//    }
+    public List<Integer> getIncorrectWord() {
+        return incorrectWord;
+    }
+
+    public void setIncorrectWord(List<Integer> incorrectWord) {
+        this.incorrectWord = incorrectWord;
+    }
+
+    public List<Integer> getUserView() {
+        return userView;
+    }
+
+    public void setUserView(List<Integer> userView) {
+        this.userView = userView;
+    }
 }
