@@ -1,11 +1,15 @@
 package com.example.vocaproject;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,9 +23,9 @@ import java.util.List;
 
 public class DailyWordbookActivity extends AppCompatActivity
         implements OnWordItemClick
-//                ,AdapterView.OnItemClickListener
 {
     int date = 0;
+    List<Word> words;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +47,13 @@ public class DailyWordbookActivity extends AppCompatActivity
         Intent intent = getIntent();
         date = intent.getIntExtra("DAY",0);
 
-        List<Word> words = WDao.getDailyData(date);
+        words = WDao.getDailyData(date);
 
         WordAdapter adapter = new WordAdapter(this, R.layout.custom_word_item, words,this);
         wordList.setAdapter(adapter);
+
+        TextView title = findViewById(R.id.dailyWord_Title);
+        title.setText("DAY "+date) ;
     }
 
 
@@ -65,9 +72,13 @@ public class DailyWordbookActivity extends AppCompatActivity
             case R.id.play:
                 intent = new Intent(this, FlashCardTest.class);
                 intent.putExtra("VocaDay",date);
+                Log.d("d", "day : " + date);
                 startActivity(intent);
-            case R.id.menu:
+            case R.id.sort_eng:
 
+            case R.id.sort_kor:
+
+            case R.id.sort_importance:
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -75,8 +86,7 @@ public class DailyWordbookActivity extends AppCompatActivity
         }
     }
 
-
-        @Override
+    @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             MenuInflater menuInflater = getMenuInflater();
             menuInflater.inflate(R.menu.wordlisttoolbar, menu);
