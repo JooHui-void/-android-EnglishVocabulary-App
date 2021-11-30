@@ -59,7 +59,7 @@ public class Setting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        mStorage = FirebaseStorage.getInstance();
+        mStorage = FirebaseStorage.getInstance();
 //        StorageReference storageRef = mStorage.getReferenceFromUrl(mUserAccount.getProfileImageUrl());
 
         setContentView(R.layout.activity_setting);
@@ -67,9 +67,7 @@ public class Setting extends AppCompatActivity {
         width=dm.widthPixels;
         height = dm.heightPixels;
         myprofile=findViewById(R.id.myprofile);
-
-        if(mUserAccount.getProfileImageUrl()!=null)
-            Glide.with(this).load(mUserAccount.getProfileImageUrl()).into(myprofile);
+        Glide.with(this).load(mUserAccount.getProfileImageUrl()).into(myprofile);
 
         myprofile.setOnClickListener(new View.OnClickListener() {
             @Override
