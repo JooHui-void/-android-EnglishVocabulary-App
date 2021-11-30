@@ -58,6 +58,7 @@ public class MainTestActivity extends AppCompatActivity {
         Toolbar myToolbar=findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db = AppDatabase.getInstance(this);
 
         mWordDao = db.wordDao();
@@ -190,7 +191,7 @@ public class MainTestActivity extends AppCompatActivity {
                         case R.id.alphabet_button:
                             componentName =new ComponentName(
                                     "com.example.vocaproject",
-                                    "com.example.vocaproject.FlashCardTest"
+                                    "com.example.vocaproject.AlphabetTest"
                             );
                             intent.setComponent(componentName);
                             intent.putExtra("VocaDay",index);
@@ -212,7 +213,7 @@ public class MainTestActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //return super.onOptionsItemSelected(item);
+
         switch (item.getItemId()) {
             case R.id.menu_settings:
                 Intent intent = new Intent();

@@ -10,4 +10,6 @@
     <color name="gray">#e0e0e0</color>
     <color name="deep_gray">#505050</color>
     <color name="navy">#232940</color>
+    <color name="green">#51b34c</color>
+    <color name="red">#d86464</color>
 </resources>

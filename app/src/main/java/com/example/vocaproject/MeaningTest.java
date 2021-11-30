@@ -4,12 +4,17 @@ import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
 import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -54,6 +59,10 @@ public class MeaningTest extends AppCompatActivity implements View.OnClickListen
         mDb = AppDatabase.getInstance(this);
         mWordDao = mDb.wordDao();
         mWordBookDao = mDb.wordBookDao();
+        Toolbar myToolbar=findViewById(R.id.meaning_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         startTest();
 
         answerBtns.add(findViewById(R.id.bt1));
@@ -206,5 +215,31 @@ public class MeaningTest extends AppCompatActivity implements View.OnClickListen
 
 
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent();
+                ComponentName componentName =new ComponentName(
+                        "com.example.vocaproject",
+                        "com.example.vocaproject.TabActivity"
+                );
+                intent.setComponent(componentName);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+
+
+        return true;
     }
 }

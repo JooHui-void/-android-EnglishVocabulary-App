@@ -48,14 +48,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginHorizontal="20dp">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/Imageview_Main_Myprofile"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="@color/gray"
-                android:layout_gravity="center"
-                android:src="@drawable/icon_man" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/myprofile"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/gray"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_man" />
+
+                <Button
+                    android:id="@+id/face"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:backgroundTint="#00000000"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

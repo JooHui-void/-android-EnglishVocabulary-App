@@ -146,6 +146,7 @@ public class FlashCardTest extends AppCompatActivity {
         front.setVisibility(View.INVISIBLE);
 
     }
+
     Button.OnClickListener onClickListener = new Button.OnClickListener() {
         @Override
         public void onClick(View view) {

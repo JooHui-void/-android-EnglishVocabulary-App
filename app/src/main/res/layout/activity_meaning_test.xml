@@ -6,16 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <androidx.appcompat.widget.Toolbar
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/toolbar"
+            android:id="@+id/meaning_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/deep_gray"
+
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <TextView
@@ -23,7 +24,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="20dp"
-                android:text="테스트">
+                android:text="뜻 맞추기"
+                >
 
             </TextView>
         </androidx.appcompat.widget.Toolbar>
@@ -31,7 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="20dp"
+            android:layout_margin="30dp"
+            android:layout_below="@id/meaning_toolbar"
             >
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -80,6 +83,6 @@
         </LinearLayout>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

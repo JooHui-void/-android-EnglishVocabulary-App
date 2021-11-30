@@ -4,9 +4,19 @@ import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
 import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AlphabetTest extends AppCompatActivity {
+public class AlphabetTest extends AppCompatActivity implements View.OnClickListener{
 
     //@BindView(/*TextView 아이디*/)
     TextView korAnswer;
@@ -35,7 +45,8 @@ public class AlphabetTest extends AppCompatActivity {
     private List<WordBook> mTestWordBook;
     private int wordIndex = 0;
     private int day;
-
+    TextView wordcnt;
+    Button bt1,bt2,bt3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,17 +56,37 @@ public class AlphabetTest extends AppCompatActivity {
         Intent intent = getIntent();
         day = intent.getIntExtra("VocaDay", 0);
 
+        Toolbar myToolbar=findViewById(R.id.alphabet_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        wordcnt=findViewById(R.id.testcnt);
+        korAnswer=findViewById(R.id.kor_word);
+        mKorAnswer=findViewById(R.id.type_word);
         mDb = AppDatabase.getInstance(this);
         mWordDao = mDb.wordDao();
         mWordBookDao = mDb.wordBookDao();
+        bt1=findViewById(R.id.re);
+        bt2=findViewById(R.id.pass);
+        bt3=findViewById(R.id.check);
+        bt1.setOnClickListener(this);
+        bt2.setOnClickListener(this);
+        bt3.setOnClickListener(this);
         startTest();
+        setView();
+    }
+
+    private void setView(){
+        wordcnt.setText(wordIndex+1+"/"+mTestWord.size());
+        korAnswer.setText(mTestWord.get(wordIndex).getWordKor());
     }
 
     // 인덱스, 단어장, 단어 초기화
     private void startTest() {
         wordIndex = 0;
 
-        if (true/*전체 테스트면*/) {
+        if (day==0) {
             mTestWordBook = mWordBookDao.getAllWordBook();
             mTestWord = mWordDao.getData();
         } else {
@@ -67,7 +98,7 @@ public class AlphabetTest extends AppCompatActivity {
 
     // 내가 적은 답이 틀렸는지 맞았는지 체크
     private boolean isCorrect(String answer){
-        if(mTestWord.get(wordIndex).getWordKor().equals(answer))
+        if(mTestWord.get(wordIndex).getWordEng().equals(answer))
             return true;
         else
             return false;
@@ -113,19 +144,72 @@ public class AlphabetTest extends AppCompatActivity {
         finish();
     }
 
-    @OnClick(/*입력버튼아이디*/)
-    public void onAnswerBtnClick(){
-        korAnswer.setText(mKorAnswer.getText());
 
-        if(isCorrect(korAnswer.toString())){
-            Toast.makeText(this, "맞았습니다!", Toast.LENGTH_SHORT);
-            mTestWord.get(wordIndex).setIsCorrect(1);
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.re:
+                mKorAnswer.setText(null);
+                break;
+            case R.id.pass:
+                mTestWord.get(wordIndex).setIsCorrect(0);
+                Toast.makeText(getApplicationContext(), "답은 "+ mTestWord.get(wordIndex).getWordEng() +" 입니다!", Toast.LENGTH_SHORT).show();
+                if(wordIndex<15){
+                    wordIndex++;
+                    setView();
+                }else{
+                    endTest();
+                }
+                break;
+            case R.id.check:
+                if(isCorrect(mKorAnswer.getText().toString())){
+                    Toast.makeText( getApplicationContext(), "맞았습니다!", Toast.LENGTH_SHORT).show();
+                    mKorAnswer.setText(null);
+                    mTestWord.get(wordIndex).setIsCorrect(0);
+                    if(wordIndex<15){
+                        wordIndex++;
+                        setView();
+                    }else{
+                        endTest();
+                    }
+                }
+                else{
+                    Toast.makeText( getApplicationContext(), "틀렸습니다!", Toast.LENGTH_SHORT).show();
+                    mKorAnswer.setText(null);
+                }
+
+                break;
         }
-        else{
-            Toast.makeText(this, "틀렸습니다!", Toast.LENGTH_SHORT);
-            mTestWord.get(wordIndex).setIsCorrect(0);
-        }
-        //다음으로 넘어가기
-        //인덱스+1
+
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent();
+                ComponentName componentName =new ComponentName(
+                        "com.example.vocaproject",
+                        "com.example.vocaproject.TabActivity"
+                );
+                intent.setComponent(componentName);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+
+
+        return true;
+    }
+
 }
