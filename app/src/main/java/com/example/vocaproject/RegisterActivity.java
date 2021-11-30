@@ -2,15 +2,22 @@ package com.example.vocaproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,20 +33,35 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.lang.reflect.Array;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    public static final int PICK_IMAGE = 1;
+
     private FirebaseAuth mFirebaseAuth; //파이어베이스 인증
+    private FirebaseStorage mStorage;
     private DatabaseReference mDatabaseRef; //실시간 데이터베이스
     private Button mBtnRegister;
     private EditText email, password, userName;
+
+    private Uri imageUri;
+    private String pathUri;
+    private ImageView profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        AppDatabase db = AppDatabase.getInstance(this);
+        WordBookDao WBDao = db.wordBookDao();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("VocaProject");
@@ -47,8 +69,19 @@ public class RegisterActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.idText);
         password = (EditText) findViewById(R.id.passwordText);
         userName = (EditText) findViewById(R.id.myName);
+        profile = (ImageView) findViewById(R.id.Myprofile);
 
         mBtnRegister.setEnabled(false);
+
+        //프로필 사진 설정
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+            }
+        });
 
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,6 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        //회원가이 버튼 클릭 이벤트
         mBtnRegister.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -126,9 +160,10 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
 
+                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
                             UserAccount account = new UserAccount();
+
                             account.setIdToken(firebaseUser.getUid());
                             account.setEmailId(firebaseUser.getEmail());
                             account.setPassword(strPwd);
@@ -144,5 +179,27 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE) {
+            imageUri = data.getData();
+            pathUri = getPath(data.getData());
+            profile.setImageURI(imageUri); // 이미지 띄움
+        }
+    }
+
+    public String getPath(Uri uri) {
+
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader cursorLoader = new CursorLoader(this, uri, proj, null, null, null);
+
+        Cursor cursor = cursorLoader.loadInBackground();
+        int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+        cursor.moveToFirst();
+        return cursor.getString(index);
     }
 }

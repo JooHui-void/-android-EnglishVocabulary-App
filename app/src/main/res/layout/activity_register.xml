@@ -21,7 +21,18 @@
             android:textColor="@color/white"
             android:textSize="18dp"
             android:textStyle="bold" />
+
     </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/Myprofile"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/gray"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/icon_man" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
