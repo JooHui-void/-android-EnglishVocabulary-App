@@ -1,14 +1,19 @@
 
 package com.example.vocaproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +34,10 @@ import java.util.List;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        Toolbar myToolbar;
+        myToolbar=findViewById(R.id.toolbar2);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         mDb = AppDatabase.getInstance(this);
         mWordDao = mDb.wordDao();
         mWordBookDao = mDb.wordBookDao();
@@ -77,5 +85,32 @@ import java.util.List;
         @Override
         public void onWordItemClick(Word word){
             mWordDao.setUpdateWord(word);
+        }
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+
+            switch (item.getItemId()) {
+                case R.id.menu_settings:
+                    Intent intent = new Intent();
+                    ComponentName componentName =new ComponentName(
+                            "com.example.vocaproject",
+                            "com.example.vocaproject.Setting"
+                    );
+                    intent.setComponent(componentName);
+                    startActivity(intent);
+                    return true;
+                default:
+
+                    return super.onOptionsItemSelected(item);
+
+            }
+        }
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+
+            MenuInflater menuInflater = getMenuInflater();
+            menuInflater.inflate(R.menu.toolbar_menu, menu);
+
+            return true;
         }
 }

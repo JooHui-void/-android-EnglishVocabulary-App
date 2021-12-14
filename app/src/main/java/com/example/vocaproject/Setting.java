@@ -4,6 +4,7 @@ import static com.example.vocaproject.LoginActivity.mUserAccount;
 import static com.example.vocaproject.MainTestActivity.mUser;
 
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.loader.content.CursorLoader;
 
 import com.bumptech.glide.Glide;
@@ -56,6 +59,10 @@ public class Setting extends AppCompatActivity {
 //        StorageReference storageRef = mStorage.getReferenceFromUrl(mUserAccount.getProfileImageUrl());
 
         setContentView(R.layout.activity_setting);
+        Toolbar toolbar = findViewById(R.id.toolbar4);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
         width=dm.widthPixels;
         height = dm.heightPixels;
@@ -227,5 +234,23 @@ public class Setting extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent();
+                ComponentName componentName =new ComponentName(
+                        "com.example.vocaproject",
+                        "com.example.vocaproject.TabActivity"
+                );
+                intent.setComponent(componentName);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
