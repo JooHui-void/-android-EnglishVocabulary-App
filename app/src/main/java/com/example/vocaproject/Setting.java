@@ -51,7 +51,6 @@ public class Setting extends AppCompatActivity {
     private String pathUri;
     private File tempFile;
     private CircleImageView myprofile;
-    private ImageView userRank;
     private FirebaseStorage mStorage;
 
     @Override
@@ -82,7 +81,6 @@ public class Setting extends AppCompatActivity {
                 selectProfile(view);
             }
         });
-
         userRank = findViewById(R.id.userRank);
         userRank.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -160,7 +158,7 @@ public class Setting extends AppCompatActivity {
     }
 
     private void uploadUserImage(){
-//        final Uri file = Uri.fromFile(new File(pathUri));
+        final Uri file = Uri.fromFile(new File(pathUri));
 
         StorageReference storageReference = mStorage.getReference()
                 .child("usersprofileImages").child("uid/"+mUserAccount.getIdToken());
