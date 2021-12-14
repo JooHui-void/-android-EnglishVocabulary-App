@@ -181,7 +181,7 @@ public class Setting extends AppCompatActivity {
         Button man2=dialog.findViewById(R.id.man2);
         Button woman1=dialog.findViewById(R.id.woman1);
         Button woman2=dialog.findViewById(R.id.woman2);
-        Button camera = dialog.findViewById(R.id.camera);
+//        Button camera = dialog.findViewById(R.id.camera);
         Button camera2 = dialog.findViewById(R.id.camera2);
 
         man1.setOnClickListener(new View.OnClickListener() {
@@ -221,15 +221,15 @@ public class Setting extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        camera.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(i,0);
-                dialog.dismiss();
-            }
-        });
+//        camera.setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(i,0);
+//                dialog.dismiss();
+//            }
+//        });
         camera2.setOnClickListener(new View.OnClickListener(){
 
             @Override
