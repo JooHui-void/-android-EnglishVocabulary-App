@@ -30,6 +30,14 @@
             </TextView>
 
         </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -149,8 +157,10 @@
             android:layout_marginVertical="10dp"
             android:src="@drawable/ic_baseline_emoji_events_24"
             app:tint="#FFD400" />
+</LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

@@ -5,7 +5,7 @@
     <item
         android:id="@+id/menu_settings"
         android:title="설정"
-        android:icon="@drawable/icon_setting"
+        android:icon="@drawable/icon_settings"
         app:showAsAction="ifRoom"
         android:iconTint="@color/white"
 
