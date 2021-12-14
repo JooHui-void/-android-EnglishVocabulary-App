@@ -7,27 +7,21 @@ import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
 import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
 import static com.example.vocaproject.MainTestActivity.mUser;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.FirebaseDatabase;
+import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Collections;
 import java.util.List;
-
-import butterknife.OnClick;
 
 public class FlashCardTest extends AppCompatActivity {
     TextView alpha2,kor2;
@@ -174,18 +168,20 @@ public class FlashCardTest extends AppCompatActivity {
                     case R.id.know:
                         incorrectWord.set(mTestWord.get(wordIndex).getId(), 1);
                         mTestWord.get(wordIndex).setIsCorrect(1);
+                        wordIndex++;
+                        setfrontView();
                         break;
                     case R.id.dont_know:
                         incorrectWord.set(mTestWord.get(wordIndex).getId(), 0);
                         mTestWord.get(wordIndex).setIsCorrect(0);
+                        wordIndex++;
+                        setfrontView();
                         break;
+
                 }
 
                 if (isEnd()) {
                     endTest();
-                } else {
-                    wordIndex++;
-                    setfrontView();
                 }
             }
     } ;

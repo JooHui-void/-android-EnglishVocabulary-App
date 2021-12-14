@@ -19,13 +19,6 @@
             android:background="@color/deep_gray"
             android:layout_marginBottom="10dp">
 
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-
-                android:background="@drawable/icon_back"
-                android:backgroundTint="@color/white"
-                android:layout_marginRight="15dp"/>
 
             <TextView
                 android:layout_width="wrap_content"

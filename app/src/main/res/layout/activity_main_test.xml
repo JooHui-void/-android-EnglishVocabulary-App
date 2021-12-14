@@ -9,33 +9,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
         <androidx.appcompat.widget.Toolbar
-            app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/deep_gray"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:background="@color/light_gray"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="테스트"
                 android:textColor="@color/white"
-                android:textSize="20dp"
-                android:text="테스트">
+                android:textSize="20dp">
 
             </TextView>
 
 
-
         </androidx.appcompat.widget.Toolbar>
+
         <ListView
             android:id="@+id/listv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:dividerHeight="20dp"
-            android:divider="@color/white"/>
+            android:layout_marginVertical="30dp"
+
+            android:divider="@color/white"
+            android:dividerHeight="20dp" />
 
     </LinearLayout>
 

@@ -69,7 +69,6 @@ public class MainTestActivity extends AppCompatActivity {
         Toolbar myToolbar=findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db = AppDatabase.getInstance(this);
 
         mWordDao = db.wordDao();

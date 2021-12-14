@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_alphabet_test.xml" value="0.1" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_bookmark.xml" value="0.1" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_choose_profile.xml" value="0.1" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_daily_wordbook.xml" value="0.1" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_flash_card_test.xml" value="0.1" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_main_test.xml" value="0.10511651469098278" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_meaning_test.xml" value="0.10511651469098278" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_my_item.xml" value="0.10663627152988855" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_ranking.xml" value="0.20052083333333334" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_setting.xml" value="0.1" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/ranking.xml" value="0.2" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/rankingbox.xml" value="0.2" />
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/drawable/linebox.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_bookmark.xml" value="0.4" />
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_daily_wordbook.xml" value="0.24947916666666667" />
