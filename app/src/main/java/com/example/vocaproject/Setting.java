@@ -53,6 +53,7 @@ public class Setting extends AppCompatActivity {
     private String pathUri;
     private File tempFile;
     private CircleImageView myprofile;
+    private ImageView userRank;
     private FirebaseStorage mStorage;
 
     @Override
@@ -73,6 +74,15 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 selectProfile(view);
+            }
+        });
+
+        userRank = findViewById(R.id.userRank);
+        userRank.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(this, Ranking.class);
+                startActivity(intent);
             }
         });
     }
@@ -144,7 +154,7 @@ public class Setting extends AppCompatActivity {
     }
 
     private void uploadUserImage(){
-        final Uri file = Uri.fromFile(new File(pathUri));
+//        final Uri file = Uri.fromFile(new File(pathUri));
 
         StorageReference storageReference = mStorage.getReference()
                 .child("usersprofileImages").child("uid/"+mUserAccount.getIdToken());
@@ -176,7 +186,7 @@ public class Setting extends AppCompatActivity {
         Button man2=dialog.findViewById(R.id.man2);
         Button woman1=dialog.findViewById(R.id.woman1);
         Button woman2=dialog.findViewById(R.id.woman2);
-//        Button camera = dialog.findViewById(R.id.camera);
+        Button camera = dialog.findViewById(R.id.camera);
         Button camera2 = dialog.findViewById(R.id.camera2);
 
         man1.setOnClickListener(new View.OnClickListener() {
@@ -216,15 +226,15 @@ public class Setting extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-//        camera.setOnClickListener(new View.OnClickListener(){
-//
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                startActivityForResult(i,0);
-//                dialog.dismiss();
-//            }
-//        });
+        camera.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(i,0);
+                dialog.dismiss();
+            }
+        });
         camera2.setOnClickListener(new View.OnClickListener(){
 
             @Override
