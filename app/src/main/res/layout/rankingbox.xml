@@ -6,6 +6,7 @@
     android:background="@drawable/wordbook"
 >
     <TextView
+        android:id="@+id/rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
@@ -13,16 +14,14 @@
         android:textSize="40dp"
         android:paddingLeft="10dp"
         android:textStyle="bold"/>
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/icon_woman2"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp">
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
@@ -38,10 +37,11 @@
                 android:gravity="bottom"
                 android:text="아는 단어 : " />
             <TextView
+                android:id="@+id/correct"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="bottom"
-                android:text="30개" />
+                android:text="30" />
         </LinearLayout>
 
     </LinearLayout>
