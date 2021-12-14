@@ -35,6 +35,10 @@ public interface WordDao {
     @Query("SELECT * FROM word WHERE wordDay =:day")
     List<Word> getDailyData(int day);
 
+    //맞은 단어 전체 개수 가져오기
+    @Query("SELECT COUNT (*) FROM Word WHERE isCorrect=1")
+    int getCorrectAll();
+
     //틀린 단어 리스트 전체 가져오기
     @Query("SELECT * FROM Word WHERE isCorrect=0")
     List<Word> getNotCorrectWordAll();

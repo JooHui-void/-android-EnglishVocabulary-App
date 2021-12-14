@@ -7,9 +7,6 @@ import static com.example.vocaproject.MainActivity.DAILY_VOCA_NUMBER;
 import static com.example.vocaproject.MainActivity.WORDBOOK_DAY_NUMBER;
 import static com.example.vocaproject.MainTestActivity.mUser;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -24,17 +21,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindViews;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MeaningTest extends AppCompatActivity implements View.OnClickListener{
     private final static int ANSWER_NUMBER = 4;
@@ -187,6 +184,7 @@ public class MeaningTest extends AppCompatActivity implements View.OnClickListen
         }
 
         mUserAccount.setIncorrectWord(incorrectWord);
+        mUserAccount.setMyCorrectNum(mWordDao.getCorrectAll());
         FirebaseDatabase.getInstance().getReference("VocaProject").child("UserAccount").child(mUser.getUid()).setValue(mUserAccount);
 
         Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT).show();
