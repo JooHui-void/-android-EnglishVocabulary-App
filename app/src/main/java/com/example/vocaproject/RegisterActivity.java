@@ -186,7 +186,6 @@ public class RegisterActivity extends AppCompatActivity {
                             account.setName(strName);
                             account.setIncorrectWord(inCorrectWord);
                             account.setUserView(userView);
-                            account.setMyCorrectNum(0);
                             account.setProfileImageUrl("https://firebasestorage.googleapis.com/v0/b/vocaproject-99742.appspot.com/o/usersprofileImages%2Fuid%2Ficon_man.jpg?alt=media&token=5295a1c6-e40b-4b81-ad96-f4a9317ef119");
 
                             mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);

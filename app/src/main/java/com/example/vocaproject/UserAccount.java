@@ -71,7 +71,6 @@ public class UserAccount {
     public void setUserView(List<Integer> userView) {
         this.userView = userView;
     }
-
     public int getMyCorrectNum() {
         return myCorrectNum;
     }
@@ -79,5 +78,4 @@ public class UserAccount {
     public void setMyCorrectNum(int myCorrectNum) {
         this.myCorrectNum = myCorrectNum;
     }
-
 }

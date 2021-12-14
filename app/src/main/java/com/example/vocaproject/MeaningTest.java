@@ -187,7 +187,6 @@ public class MeaningTest extends AppCompatActivity implements View.OnClickListen
         }
 
         mUserAccount.setIncorrectWord(incorrectWord);
-        mUserAccount.setMyCorrectNum(mWordDao.getCorrectAll());
         FirebaseDatabase.getInstance().getReference("VocaProject").child("UserAccount").child(mUser.getUid()).setValue(mUserAccount);
 
         Toast.makeText(this, "짝짝짝, 단어 테스트 종료!", Toast.LENGTH_SHORT).show();

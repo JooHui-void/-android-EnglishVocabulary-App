@@ -26,7 +26,7 @@
             android:exported="true" />
         <activity
             android:name=".Setting"
-            android:exported="true" />
+            android:exported="true"/>
         <activity
             android:name=".DailyWordbookActivity"
             android:exported="true" />
