@@ -79,4 +79,5 @@ public class UserAccount {
     public void setMyCorrectNum(int myCorrectNum) {
         this.myCorrectNum = myCorrectNum;
     }
+
 }

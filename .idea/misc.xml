@@ -16,7 +16,7 @@
         <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_search.xml" value="0.1" />
         <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/activity_setting.xml" value="0.1" />
         <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/ranking.xml" value="0.2" />
-        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/rankingbox.xml" value="0.2" />
+        <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/layout/rankingbox.xml" value="0.1" />
         <entry key="..\:/Users/TFX255GS/Desktop/android_project/app/src/main/res/menu/toolbar_menu.xml" value="0.1" />
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/drawable/linebox.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/gydnj/gitProject/vocabulary/app/src/main/res/layout/activity_bookmark.xml" value="0.4" />
@@ -53,8 +53,6 @@
         <entry key="..\:/Users/ljw01/AndroidStudioProjects/VocaProject/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Users/ljw01/AndroidStudioProjects/VocaProject/app/src/main/res/layout/activity_setting.xml" value="0.1" />
         <entry key="..\:/Users/ljw01/AndroidStudioProjects/VocaProject/app/src/main/res/xml/network_security_config.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_choose_profile.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_setting.xml" value="0.165" />
       </map>
     </option>
   </component>
