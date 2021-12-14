@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        tools:layout_editor_absoluteX="-39dp"
+        tools:layout_editor_absoluteY="180dp">
+
         <androidx.appcompat.widget.Toolbar
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/toolbar4"
@@ -20,50 +22,57 @@
             android:layout_marginBottom="10dp">
 
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="설정"
                 android:textColor="@color/white"
-                android:textSize="20dp"
-                android:text="설정">
+                android:textSize="20dp">
 
             </TextView>
 
         </androidx.appcompat.widget.Toolbar>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:text="프로필 정보"
-            android:textSize = "25dp"
-            android:layout_margin="20dp"/>
+            android:textSize="25dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="20dp">
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal">
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/myprofile"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
-                    app:civ_border_width="2dp"
-                    app:civ_border_color="@color/gray"
                     android:layout_gravity="center"
-                    android:src="@drawable/icon_man" />
+                    android:src="@drawable/icon_man"
+                    app:civ_border_color="@color/gray"
+                    app:civ_border_width="2dp" />
 
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="20dp">
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
 
                         android:layout_width="wrap_content"
@@ -75,75 +84,87 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="이름 : "
-                        android:textSize="20dp"/>
+                        android:textSize="20dp" />
 
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_gravity="center_horizontal"
-            android:background="@color/deep_gray"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="20dp"/>
+            android:layout_marginVertical="20dp"
+            android:background="@color/deep_gray" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:text="테마"
-            android:layout_marginHorizontal="20dp"
-            android:textSize="25dp"
-            android:textColor="@color/deep_gray"/>
+            android:textColor="@color/deep_gray"
+            android:textSize="25dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
             android:text="검정색"
-            android:layout_marginHorizontal="20dp"
-            android:textSize="20dp"
-            android:layout_marginVertical="10dp"
-            />
+            android:textSize="20dp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_gravity="center_horizontal"
-            android:background="@color/deep_gray"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="10dp"/>
+            android:layout_marginVertical="10dp"
+            android:background="@color/deep_gray" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
             android:text="알림설정"
-            android:layout_marginHorizontal="20dp"
-            android:textSize="25dp"
             android:textColor="@color/deep_gray"
-            android:layout_marginVertical="10dp"/>
+            android:textSize="25dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ON"
             android:layout_marginHorizontal="20dp"
-            android:textSize="20dp"
             android:layout_marginVertical="10dp"
-            />
+            android:text="ON"
+            android:textSize="20dp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_gravity="center_horizontal"
-            android:background="@color/deep_gray"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="10dp"/>
+            android:layout_marginVertical="10dp"
+            android:background="@color/deep_gray" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="정보초기화"
             android:layout_marginHorizontal="20dp"
-            android:textSize="25dp"
+            android:layout_marginVertical="10dp"
+            android:text="사용자 순위"
             android:textColor="@color/deep_gray"
-            android:layout_marginVertical="10dp"/>
+            android:textSize="25dp" />
 
-            />
+        <ImageView
+            android:id="@+id/userRank"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:src="@drawable/ic_baseline_emoji_events_24"
+            app:tint="#FFD400" />
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
