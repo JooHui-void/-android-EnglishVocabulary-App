@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,7 +87,7 @@ public class Setting extends AppCompatActivity {
         userRank.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(this, Ranking.class);
+                Intent intent = new Intent(getApplicationContext(), Ranking.class);
                 startActivity(intent);
             }
         });
