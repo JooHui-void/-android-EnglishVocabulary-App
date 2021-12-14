@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:layout_margin="8dp"
-    android:background="#f0f0f0ff">
+    android:padding="12dp"
+    android:layout_margin="16dp"
+    android:background="@color/gray">
 
     <TextView
         android:id="@+id/custom_wordbook_day"
