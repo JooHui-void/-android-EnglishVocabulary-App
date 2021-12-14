@@ -9,6 +9,7 @@ public class UserAccount {
     private String password;
     private String name;
     private String profileImageUrl;
+    private int myCorrectNum;
 
     private List<Integer> incorrectWord;
     private List<Integer> userView;
@@ -69,5 +70,13 @@ public class UserAccount {
 
     public void setUserView(List<Integer> userView) {
         this.userView = userView;
+    }
+
+    public int getMyCorrectNum() {
+        return myCorrectNum;
+    }
+
+    public void setMyCorrectNum(int myCorrectNum) {
+        this.myCorrectNum = myCorrectNum;
     }
 }
