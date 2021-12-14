@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -67,6 +68,10 @@ public class Setting extends AppCompatActivity {
         width=dm.widthPixels;
         height = dm.heightPixels;
         myprofile=findViewById(R.id.myprofile);
+        String userName = mUserAccount.getName();
+
+        TextView name =findViewById(R.id.name);
+        name.setText(userName);
         Glide.with(this).load(mUserAccount.getProfileImageUrl()).into(myprofile);
 
         myprofile.setOnClickListener(new View.OnClickListener() {
